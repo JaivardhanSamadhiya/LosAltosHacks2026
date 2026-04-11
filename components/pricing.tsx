@@ -9,13 +9,13 @@ import { ExamplesDialog } from "./examples-dialog"
 
 type Feature = { text: string; muted?: boolean }
 
-const ACCENT = "#C6FF3A"
+const ACCENT = "#06B6D4" // Cyan color for Civic
 
 function FeatureItem({ text, muted = false }: Feature) {
   return (
     <li className="flex items-start gap-2">
       <CheckCircle2 className="mt-0.5 h-4 w-4" style={{ color: ACCENT }} />
-      <span className={`text-sm ${muted ? "text-neutral-300" : "text-neutral-100"}`}>{text}</span>
+      <span className={`text-sm ${muted ? "text-neutral-400" : "text-neutral-100"}`}>{text}</span>
     </li>
   )
 }
@@ -24,16 +24,16 @@ type Currency = "INR" | "USD"
 
 const PRICES: Record<Currency, { startup: string; pro: string; premium: string; save: string }> = {
   INR: {
-    startup: "₹25,000/-",
-    pro: "₹55,000/-",
-    premium: "₹1,70,500/-",
-    save: "Save Flat ₹1,500/-",
+    startup: "₹5,000/mo",
+    pro: "₹15,000/mo",
+    premium: "₹50,000/mo",
+    save: "Save Flat ₹5,000/-",
   },
   USD: {
-    startup: "$299",
-    pro: "$699",
-    premium: "$2,049",
-    save: "Save $20",
+    startup: "$60/mo",
+    pro: "$180/mo",
+    premium: "$600/mo",
+    save: "Save $30",
   },
 }
 
@@ -108,22 +108,22 @@ export function Pricing() {
             className="mx-auto mb-4 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-white"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", border: `1px solid ${ACCENT}` }}
           >
-            Our Pricing and Packages
+            Flexible Plans for Every City
           </div>
           <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl" itemProp="name">
-            Our Pricing.
+            Simple, Transparent Pricing
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-sm text-neutral-300" itemProp="description">
-            No hidden fees. Just world-class animation that fits your budget.
+            Subscription-based access to AI-powered urban simulations with full support and updates included.
           </p>
           <div className="mt-6">
             <Button
               asChild
-              className="rounded-full px-5 text-neutral-900 hover:brightness-95"
-              style={{ backgroundColor: "#f2f2f2" }}
+              className="rounded-full px-5 text-white hover:brightness-110"
+              style={{ backgroundColor: ACCENT, color: "#000" }}
             >
-              <Link href="https://wa.link/rc25na" target="_blank">
-                Contact now
+              <Link href="https://wa.link/civic-demo" target="_blank">
+                Request Demo
               </Link>
             </Button>
           </div>
@@ -144,34 +144,34 @@ export function Pricing() {
             </div>
             <CardHeader className="space-y-3 pb-4">
               <div className="text-sm font-semibold text-neutral-100" itemProp="name">
-                Startup
+                Starter
               </div>
               <div className="flex items-end gap-2 text-white">
                 <div className="text-xl font-bold tracking-tight" itemProp="price">
                   {PRICES[currency].startup}
                 </div>
-                <span className="pb-0.5 text-[11px] text-neutral-300">per video</span>
+                <span className="pb-0.5 text-[11px] text-neutral-300">billed monthly</span>
                 <meta itemProp="priceCurrency" content={currency} />
               </div>
               <Button
                 type="button"
-                onClick={() => setOpenPlan("Startup")}
-                onTouchStart={() => setOpenPlan("Startup")}
+                onClick={() => setOpenPlan("Starter")}
+                onTouchStart={() => setOpenPlan("Starter")}
                 className="w-full rounded-full px-4 py-2 text-sm font-medium transition-colors"
-                style={{ backgroundColor: "#0a0a0a", color: "#ffffff", border: "1px solid #333" }}
+                style={{ backgroundColor: "#0a0a0a", color: ACCENT, border: `1px solid ${ACCENT}` }}
               >
-                View Example
+                Try Free
               </Button>
             </CardHeader>
             <CardContent className="pt-0">
               <ul className="grid gap-2" itemProp="description">
                 {[
-                  "10–15s Reel/Teaser (1 SKU)",
-                  "Simple background + lighting",
-                  "1 revision",
-                  "Delivered in 10 days",
-                  "Social reel/ad-ready visuals",
-                  "3D Modelling - Included",
+                  "1 small neighborhood",
+                  "Basic climate modeling",
+                  "Email support",
+                  "Monthly updates",
+                  "API access (basic)",
+                  "Community forum",
                 ].map((f, i) => (
                   <FeatureItem key={i} text={f} />
                 ))}
@@ -194,7 +194,7 @@ export function Pricing() {
                 <div className="text-xl font-bold tracking-tight" itemProp="price">
                   {PRICES[currency].pro}
                 </div>
-                <span className="pb-0.5 text-[11px] text-neutral-300">per video</span>
+                <span className="pb-0.5 text-[11px] text-neutral-300">billed monthly</span>
                 <meta itemProp="priceCurrency" content={currency} />
               </div>
               <Button
@@ -202,20 +202,21 @@ export function Pricing() {
                 onClick={() => setOpenPlan("Pro")}
                 onTouchStart={() => setOpenPlan("Pro")}
                 className="w-full rounded-full px-4 py-2 text-sm font-medium transition-colors"
-                style={{ backgroundColor: "#0a0a0a", color: "#ffffff", border: "1px solid #333" }}
+                style={{ backgroundColor: ACCENT, color: "#000" }}
               >
-                View Example
+                Get Started
               </Button>
             </CardHeader>
             <CardContent className="pt-0">
               <ul className="grid gap-2" itemProp="description">
                 {[
-                  "20–25s Animation (1 SKU)",
-                  "Fixed Shot-list (no surprises)",
-                  "Creative background + pro graphics",
-                  "2 structured revisions",
-                  "Delivered in 3 weeks",
-                  "3D Modelling - Included",
+                  "Full city district",
+                  "Advanced AI modeling",
+                  "Priority support",
+                  "Bi-weekly updates",
+                  "API access (pro)",
+                  "Multi-scenario planning",
+                  "Custom dashboards",
                 ].map((f, i) => (
                   <FeatureItem key={i} text={f} />
                 ))}
@@ -232,34 +233,36 @@ export function Pricing() {
           >
             <CardHeader className="relative space-y-3 pb-4">
               <div className="text-sm font-semibold text-neutral-100" itemProp="name">
-                Premium
+                Enterprise
               </div>
               <div className="flex items-end gap-2 text-white">
                 <div className="text-xl font-bold tracking-tight" itemProp="price">
                   {PRICES[currency].premium}
                 </div>
-                <span className="pb-0.5 text-[11px] text-neutral-300">per video</span>
+                <span className="pb-0.5 text-[11px] text-neutral-300">billed monthly</span>
                 <meta itemProp="priceCurrency" content={currency} />
               </div>
               <Button
                 type="button"
-                onClick={() => setOpenPlan("Premium")}
-                onTouchStart={() => setOpenPlan("Premium")}
+                onClick={() => setOpenPlan("Enterprise")}
+                onTouchStart={() => setOpenPlan("Enterprise")}
                 className="w-full rounded-full px-4 py-2 text-sm font-medium transition-colors"
-                style={{ backgroundColor: "#0a0a0a", color: "#ffffff", border: "1px solid #333" }}
+                style={{ backgroundColor: ACCENT, color: "#000", fontWeight: "bold" }}
               >
-                View Example
+                Contact Sales
               </Button>
             </CardHeader>
             <CardContent className="relative pt-0">
               <ul className="grid gap-2" itemProp="description">
                 {[
-                  "30–40s Animation (up to 5 SKUs)",
-                  "Advanced storyboard + shot design",
-                  "Delivered in 4 week",
-                  "Lighting, Camera Animation, Depth effects",
-                  "Up to 3 structured revisions",
-                  "3D Modelling - Included",
+                  "Unlimited cities & districts",
+                  "Custom AI models",
+                  "24/7 dedicated support",
+                  "Real-time updates",
+                  "Full API access",
+                  "Advanced integrations",
+                  "White-label options",
+                  "SLA guarantee",
                 ].map((f, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 h-4 w-4" style={{ color: ACCENT }} />

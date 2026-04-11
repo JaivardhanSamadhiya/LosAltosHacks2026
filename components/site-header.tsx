@@ -21,30 +21,29 @@ export function SiteHeader() {
 
   const services = [
     {
-      href: "/3D-architecture-visualization-studio",
-      label: "ArchViz Render",
+      href: "#mapping",
+      label: "Live City Maps",
       icon: Building2,
-      description: "Photoreal 3D renders & CGI walkthroughs",
+      description: "Real-time 2.5D visualization",
     },
     {
-      href: "/3d-product-rendering",
-      label: "3D Product Rendering",
+      href: "#ai",
+      label: "AI Copilot",
       icon: Package,
-      description: "Studio-quality product visuals",
+      description: "Natural language planning",
     },
     {
-      href: "/",
-      label: "3D Product Animation",
+      href: "#dashboard",
+      label: "Analytics Hub",
       icon: Package,
-      description: "Motion-led storytelling for products",
+      description: "Impact measurements & insights",
     },
   ]
 
   const links = [
     { href: "#pricing", label: "Pricing", icon: Tag },
-    { href: "faq", label: "FAQ", icon: HelpCircle },
-    { href: "#blog", label: "Blog", icon: FileText },
-    { href: "About", label: "About", icon: Info },
+    { href: "#faq", label: "FAQ", icon: HelpCircle },
+    { href: "#about", label: "About", icon: Info },
   ]
 
   return (
@@ -52,9 +51,9 @@ export function SiteHeader() {
       <div className="container mx-auto max-w-4xl">
         <div className="flex h-14 items-center justify-between px-6 liquid-glass-header rounded-full">
           {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-1.5">
-            <Image src="/icons/skitbit-white.svg" alt="Skitbit logo" width={20} height={20} className="h-5 w-5" />
-            <span className="font-semibold tracking-wide text-white">Skitbit</span>
+          <Link href="/" className="flex items-center gap-2">
+            <div className="h-5 w-5 rounded bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-xs font-bold text-black">◆</div>
+            <span className="font-semibold tracking-wide text-white text-sm">Civic DT</span>
           </Link>
 
           {/* Desktop Nav with Services Dropdown */}
@@ -63,28 +62,28 @@ export function SiteHeader() {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
-                    className="bg-transparent text-white/90 hover:text-purple-300 data-[state=open]:text-purple-300
+                    className="bg-transparent text-white/90 hover:text-cyan-300 data-[state=open]:text-cyan-300
                                hover:bg-transparent focus:bg-transparent
                                data-[state=open]:bg-transparent data-[state=open]:hover:bg-transparent
                                data-[active=true]:bg-transparent"
                   >
-                    Services
+                    Features
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[280px] gap-2 p-3 bg-gray-950/95 backdrop-blur-xl border border-gray-800 rounded-lg">
+                    <ul className="grid w-[280px] gap-2 p-3 bg-gray-950/95 backdrop-blur-xl border border-cyan-400/20 rounded-lg">
                       {services.map((service) => (
                         <li key={service.href}>
                           <NavigationMenuLink asChild>
                             <Link
                               href={service.href}
                               className="group relative flex items-start gap-3 rounded-xl p-3 transition-all
-                                         hover:bg-white/5 hover:ring-1 hover:ring-purple-300/60
-                                         hover:shadow-[0_0_0_1px_rgba(168,85,247,0.25),0_0_20px_rgba(168,85,247,0.15)]
-                                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-300/70"
+                                         hover:bg-cyan-400/10 hover:ring-1 hover:ring-cyan-300/60
+                                         hover:shadow-[0_0_0_1px_rgba(34,211,238,0.25),0_0_20px_rgba(34,211,238,0.15)]
+                                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
                             >
-                              <service.icon className="h-5 w-5 text-purple-300 mt-0.5 shrink-0 group-hover:text-purple-200" />
+                              <service.icon className="h-5 w-5 text-cyan-300 mt-0.5 shrink-0 group-hover:text-cyan-200" />
                               <div>
-                                <div className="text-sm font-medium text-white group-hover:text-purple-300">
+                                <div className="text-sm font-medium text-white group-hover:text-cyan-300">
                                   {service.label}
                                 </div>
                                 <p className="text-xs text-gray-400 mt-0.5">{service.description}</p>

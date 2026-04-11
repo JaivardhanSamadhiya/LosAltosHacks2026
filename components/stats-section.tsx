@@ -5,28 +5,28 @@ import { ScrollReveal } from "./scroll-reveal"
 
 const stats = [
   {
+    value: 42,
+    suffix: "%",
+    label: "Heat Risk Reduction",
+    description: "Average city-wide impact",
+  },
+  {
     value: 250,
     suffix: "+",
-    label: "Projects Delivered",
-    description: "Successful 3D animations",
+    label: "Cities Planning",
+    description: "Using digital twins",
   },
   {
-    value: 98,
+    value: 95,
     suffix: "%",
-    label: "Client Satisfaction",
-    description: "Based on feedback",
+    label: "Decision Accuracy",
+    description: "With AI recommendations",
   },
   {
-    value: 15,
-    suffix: "+",
-    label: "Countries Served",
-    description: "Global reach",
-  },
-  {
-    value: 48,
-    suffix: "h",
-    label: "Avg. Turnaround",
-    description: "For initial concepts",
+    value: 10,
+    suffix: "x",
+    label: "Faster Scenarios",
+    description: "vs. traditional planning",
   },
 ]
 
@@ -35,21 +35,21 @@ export function StatsSection() {
     <section className="py-16 sm:py-24 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 particle-bg opacity-50" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-lime-400/5 rounded-full blur-3xl animate-blob" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-400/5 rounded-full blur-3xl animate-blob" />
       
       <div className="container mx-auto px-4 relative z-10">
         <ScrollReveal className="text-center mb-12">
-          <p className="text-[11px] tracking-widest text-lime-300/80 mb-2">BY THE NUMBERS</p>
+          <p className="text-[11px] tracking-widest text-cyan-300/80 mb-2">PLATFORM IMPACT</p>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-            Trusted by brands <span className="animate-text-gradient">worldwide</span>
+            Cities making smarter <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">decisions</span>
           </h2>
         </ScrollReveal>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
             <ScrollReveal key={stat.label} delay={index * 100}>
-              <div className="liquid-glass rounded-2xl p-6 text-center glass-card-interactive group">
-                <div className="text-4xl sm:text-5xl font-bold text-lime-300 mb-2">
+              <div className="liquid-glass rounded-2xl p-6 text-center glass-card-interactive group border border-cyan-400/20">
+                <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2">
                   <AnimatedCounter 
                     end={stat.value} 
                     suffix={stat.suffix}
@@ -61,7 +61,7 @@ export function StatsSection() {
                 
                 {/* Hover glow effect */}
                 <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-lime-400/10 to-transparent" />
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-400/10 to-transparent" />
                 </div>
               </div>
             </ScrollReveal>

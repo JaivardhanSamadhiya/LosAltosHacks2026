@@ -1,8 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Image from "next/image"
-import { Star } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollReveal } from "./scroll-reveal"
 
@@ -12,8 +10,8 @@ interface FeaturesContent {
 }
 
 const defaultContent: FeaturesContent = {
-  title: "What makes us the best studio for you.",
-  subtitle: "Discover our unique approach to 3D animation",
+  title: "Core Platform Capabilities",
+  subtitle: "Everything you need for sustainable urban planning",
 }
 
 export function Features() {
@@ -43,73 +41,50 @@ export function Features() {
       </ScrollReveal>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {/* Adaptability Card - Hidden on mobile */}
+        {/* AI Copilot Card */}
         <ScrollReveal delay={100}>
-          <Card className="hidden md:block liquid-glass border border-white/20 glass-card-interactive h-full">
+          <Card className="hidden md:block liquid-glass border border-cyan-400/20 glass-card-interactive h-full bg-gradient-to-br from-cyan-500/5 to-blue-500/5">
           <CardHeader>
-            <p className="text-[11px] tracking-widest text-white/80">ADAPTABILITY</p>
-            <CardTitle className="mt-1 text-xl text-white">Make the experience truly intuitive</CardTitle>
+            <p className="text-[11px] tracking-widest text-cyan-300">AI COPILOT</p>
+            <CardTitle className="mt-1 text-xl text-white">Natural Language Planning</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-white/10">
-                <Image
-                  src="/images/intuitive-1.png"
-                  alt="Close-up smartphone camera module on textured leather back"
-                  fill
-                  className="object-cover"
-                  sizes="(min-width: 768px) 240px, 45vw"
-                  priority={false}
-                />
+            <div className="space-y-3">
+              <div className="rounded-lg bg-black/40 border border-cyan-400/20 p-3">
+                <p className="text-sm text-cyan-300/80">💬 "What if we doubled our cooling centers in this district?"</p>
               </div>
-              <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-white/10">
-                <Image
-                  src="/images/intuitive-2.png"
-                  alt="Hand gripping textured phone back — macro detail"
-                  fill
-                  className="object-cover"
-                  sizes="(min-width: 768px) 240px, 45vw"
-                  priority={false}
-                />
+              <div className="rounded-lg bg-black/40 border border-cyan-400/20 p-3">
+                <p className="text-sm text-cyan-300/80">🤖 Model updates instantly with impacts shown in real-time</p>
               </div>
+              <div className="text-xs text-gray-400">AI analyzes policies across climate, equity, budget, and health</div>
             </div>
           </CardContent>
           </Card>
         </ScrollReveal>
 
-        {/* Client Love Card - Always visible */}
+        {/* Real-Time Mapping Card */}
         <ScrollReveal delay={200}>
-          <Card className="liquid-glass border border-white/20 glass-card-interactive h-full">
+          <Card className="liquid-glass border border-cyan-400/20 glass-card-interactive h-full bg-gradient-to-br from-cyan-500/5 to-blue-500/5">
           <CardHeader>
-            <p className="text-[11px] tracking-widest text-white/80">CLIENT LOVE</p>
+            <p className="text-[11px] tracking-widest text-cyan-300">LIVE MAPPING</p>
             <CardTitle className="mt-1 text-xl text-white">
-              Their work didn't just look good, it moved the needle — our audience felt the difference instantly.
+              Interactive 2.5D City Visualization
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="mb-6 flex items-end gap-4">
-              <div className="text-5xl font-bold text-lime-300">4.9</div>
-              <div className="flex items-center gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-lime-300 text-lime-300" />
-                ))}
+            <div className="space-y-3">
+              <div className="grid grid-cols-3 gap-2">
+                <div className="rounded-lg bg-red-500/20 border border-red-400/20 p-2 text-center">
+                  <div className="text-xs font-bold text-red-300">Risk Zones</div>
+                </div>
+                <div className="rounded-lg bg-yellow-500/20 border border-yellow-400/20 p-2 text-center">
+                  <div className="text-xs font-bold text-yellow-300">Resources</div>
+                </div>
+                <div className="rounded-lg bg-green-500/20 border border-green-400/20 p-2 text-center">
+                  <div className="text-xs font-bold text-green-300">Solutions</div>
+                </div>
               </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <Image
-                src={"/images/top-rated-1.png"}
-                width={280}
-                height={160}
-                alt="Product sketch concepts of backpack on paper"
-                className="h-full w-full rounded-xl border border-white/10 object-cover"
-              />
-              <Image
-                src={"/images/top-rated-2.png"}
-                width={280}
-                height={160}
-                alt="Backpacks on stage with Smartpack PRO lighting"
-                className="h-full w-full rounded-xl border border-white/10 object-cover"
-              />
+              <p className="text-xs text-gray-400">Pan, zoom, and drill into neighborhood-level data instantly</p>
             </div>
           </CardContent>
           </Card>
