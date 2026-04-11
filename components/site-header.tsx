@@ -33,7 +33,7 @@ export function SiteHeader() {
       description: "Natural language planning",
     },
     {
-      href: "#dashboard",
+      href: "#simulation",
       label: "Analytics Hub",
       icon: FileText,
       description: "Impact measurements & insights",
@@ -42,7 +42,8 @@ export function SiteHeader() {
 
   const links = [
     { href: "#simulation", label: "Demo", icon: Map },
-    { href: "#features", label: "About", icon: Info },
+    { href: "#process", label: "How It Works", icon: Info },
+    { href: "/contact", label: "Contact", icon: FileText },
   ]
 
   return (
@@ -111,7 +112,7 @@ export function SiteHeader() {
                          hover:bg-lime-300 hover:shadow-md hover:scale-[1.02]
                          transition-all"
             >
-              <Link href="#contact">Request Demo</Link>
+              <Link href="/contact">Request Demo</Link>
             </Button>
           </div>
 
@@ -187,7 +188,7 @@ export function SiteHeader() {
                                hover:bg-lime-300 hover:shadow-md hover:scale-[1.02]
                                transition-all"
                   >
-                    <Link href="https://wa.link/civic-demo">Request Demo</Link>
+                    <Link href="/contact">Request Demo</Link>
                   </Button>
                 </div>
               </SheetContent>

@@ -49,9 +49,7 @@ export function Hero() {
             className={`mt-6 transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
             <Button asChild className="rounded-full bg-lime-400 px-6 text-black hover:bg-lime-300 hover:scale-105 transition-all duration-300 animate-glow-pulse">
-              <a href="#simulation">
-                Try Live Demo
-              </a>
+              <a href="#simulation">Try Live Demo</a>
             </Button>
           </div>
 

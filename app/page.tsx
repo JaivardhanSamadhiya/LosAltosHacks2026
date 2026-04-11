@@ -2,8 +2,6 @@ import { SiteHeader } from "@/components/site-header"
 import { Hero } from "@/components/hero"
 import { Features } from "@/components/features"
 import { SimulationPreview } from "@/components/simulation-preview"
-import { AICopilotDemo } from "@/components/ai-copilot-demo"
-import { ImpactMetrics } from "@/components/impact-metrics"
 import { ProcessSection } from "@/components/process-section"
 import { AppverseFooter } from "@/components/appverse-footer"
 import Script from "next/script"
@@ -37,8 +35,6 @@ export default function Page() {
         <Hero />
         <Features />
         <SimulationPreview />
-        <AICopilotDemo />
-        <ImpactMetrics />
         <ProcessSection />
         <AppverseFooter />
       </main>

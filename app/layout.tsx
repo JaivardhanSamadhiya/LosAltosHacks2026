@@ -39,6 +39,11 @@ export default function RootLayout({
           crossOrigin="anonymous"
           fetchPriority="high"
         />
+        {/* Leaflet CSS */}
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        />
 
         {/* Dynamic Favicon Script */}
         <Script id="dynamic-favicon" strategy="beforeInteractive">

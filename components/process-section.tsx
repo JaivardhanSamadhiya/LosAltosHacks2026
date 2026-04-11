@@ -36,7 +36,7 @@ const steps = [
 
 export function ProcessSection() {
   return (
-    <section className="py-16 sm:py-24 relative">
+    <section id="process" className="py-16 sm:py-24 relative">
       <div className="container mx-auto px-4">
         <ScrollReveal className="text-center mb-16">
           <p className="text-[11px] tracking-widest text-lime-300/80 mb-2">HOW IT WORKS</p>

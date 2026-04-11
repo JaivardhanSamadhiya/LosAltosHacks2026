@@ -1,8 +1,9 @@
 "use client"
 
+import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollReveal } from "./scroll-reveal"
-import { Globe, Brain, BarChart3, Clock, Shield, Zap } from "lucide-react"
+import { Globe, Brain, BarChart3, Clock, Shield, Zap, ArrowRight } from "lucide-react"
 
 const features = [
   {
@@ -67,21 +68,26 @@ export function Features() {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((feature, index) => (
           <ScrollReveal key={feature.title} delay={index * 100}>
-            <Card className="liquid-glass border border-white/10 glass-card-interactive h-full group">
-              <CardHeader>
-                <div className={`w-12 h-12 rounded-xl ${feature.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <feature.icon className={`w-6 h-6 ${feature.color}`} />
-                </div>
-                <CardTitle className="text-lg text-white group-hover:text-lime-300 transition-colors">
-                  {feature.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-neutral-400 leading-relaxed">
-                  {feature.description}
-                </p>
-              </CardContent>
-            </Card>
+            <Link href="#simulation" className="block h-full">
+              <Card className="liquid-glass border border-white/10 glass-card-interactive h-full group cursor-pointer">
+                <CardHeader>
+                  <div className={`w-12 h-12 rounded-xl ${feature.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <feature.icon className={`w-6 h-6 ${feature.color}`} />
+                  </div>
+                  <CardTitle className="text-lg text-white group-hover:text-lime-300 transition-colors">
+                    {feature.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-neutral-400 leading-relaxed mb-4">
+                    {feature.description}
+                  </p>
+                  <span className="inline-flex items-center gap-1 text-xs text-lime-300/60 group-hover:text-lime-300 transition-colors">
+                    See in demo <ArrowRight className="w-3 h-3" />
+                  </span>
+                </CardContent>
+              </Card>
+            </Link>
           </ScrollReveal>
         ))}
       </div>
