@@ -22,21 +22,21 @@ export function SiteHeader() {
   const services = [
     {
       href: "#features",
-      label: "Live City Maps",
+      label: "Platform Features",
       icon: Map,
-      description: "Real-time 2.5D visualization",
-    },
-    {
-      href: "#features",
-      label: "AI Copilot",
-      icon: Cpu,
-      description: "Natural language planning",
+      description: "Explore core capabilities",
     },
     {
       href: "#simulation",
-      label: "Analytics Hub",
+      label: "Live Demo",
+      icon: Cpu,
+      description: "Try the AI chatbot and map",
+    },
+    {
+      href: "#process",
+      label: "How It Works",
       icon: FileText,
-      description: "Impact measurements & insights",
+      description: "Learn about our workflow",
     },
   ]
 

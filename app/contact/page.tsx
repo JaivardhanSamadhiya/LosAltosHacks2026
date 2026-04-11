@@ -66,7 +66,7 @@ export default function ContactPage() {
                 {/* Formsubmit honeypot + config */}
                 <input type="hidden" name="_captcha" value="false" />
                 <input type="hidden" name="_subject" value="New Civic Digital Twin Inquiry" />
-                <input type="hidden" name="_next" value="https://civicdigitaltwin.com/contact?success=1" />
+                <input type="hidden" name="_next" value="/" />
                 <input type="text" name="_honey" className="hidden" />
 
                 <div>

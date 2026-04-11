@@ -1,32 +1,11 @@
 "use client"
 
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { Layers } from "lucide-react"
 
 export function AppverseFooter() {
   return (
     <section className="text-white">
-      {/* CTA Card */}
-      <div className="container mx-auto px-4 py-12 sm:py-16">
-        <Card className="relative overflow-hidden rounded-3xl liquid-glass p-6 sm:p-10">
-          <div className="relative text-center max-w-2xl mx-auto">
-            <p className="mb-2 text-[11px] tracking-widest text-lime-300">IN DEVELOPMENT</p>
-            <h3 className="text-2xl font-bold leading-tight text-white sm:text-3xl mb-4">
-              Help shape the future of urban planning
-            </h3>
-            <p className="text-sm text-neutral-400 mb-6">
-              Civic Digital Twin is actively seeking pilot city partners and collaborators. If you work in urban
-              planning, climate resilience, or smart city infrastructure, we&apos;d love to connect.
-            </p>
-            <Button asChild className="bg-lime-400 text-black hover:bg-lime-300 font-semibold">
-              <Link href="/contact">Join the Pilot Program</Link>
-            </Button>
-          </div>
-        </Card>
-      </div>
-
       {/* Footer */}
       <footer className="border-t border-white/10 pb-20 md:pb-10">
         <div className="container mx-auto px-4 py-10">
