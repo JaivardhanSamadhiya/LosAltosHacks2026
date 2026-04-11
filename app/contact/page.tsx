@@ -55,7 +55,7 @@ export default function ContactPage() {
 
               {/* formsubmit.co form — action points to the email, _next redirects back */}
               <form
-                action="https://formsubmit.co/jaisamadhiya@gmail.com"
+                action="https://formsubmit.co/33adb1ba33fe6326f12587f46bf36cad"
                 method="POST"
                 onSubmit={() => {
                   // Allow native submit but show success state after a brief delay
