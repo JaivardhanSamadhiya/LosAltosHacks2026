@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Star } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { ScrollReveal } from "./scroll-reveal"
 
 interface FeaturesContent {
   title: string
@@ -35,13 +36,16 @@ export function Features() {
 
   return (
     <section id="features" className="container mx-auto px-4 py-16 sm:py-20">
-      <h2 className="mb-8 text-center text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
-        {content.title}
-      </h2>
+      <ScrollReveal>
+        <h2 className="mb-8 text-center text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+          {content.title}
+        </h2>
+      </ScrollReveal>
 
       <div className="grid gap-6 md:grid-cols-2">
         {/* Adaptability Card - Hidden on mobile */}
-        <Card className="hidden md:block liquid-glass border border-white/20">
+        <ScrollReveal delay={100}>
+          <Card className="hidden md:block liquid-glass border border-white/20 glass-card-interactive h-full">
           <CardHeader>
             <p className="text-[11px] tracking-widest text-white/80">ADAPTABILITY</p>
             <CardTitle className="mt-1 text-xl text-white">Make the experience truly intuitive</CardTitle>
@@ -70,10 +74,12 @@ export function Features() {
               </div>
             </div>
           </CardContent>
-        </Card>
+          </Card>
+        </ScrollReveal>
 
         {/* Client Love Card - Always visible */}
-        <Card className="liquid-glass border border-white/20">
+        <ScrollReveal delay={200}>
+          <Card className="liquid-glass border border-white/20 glass-card-interactive h-full">
           <CardHeader>
             <p className="text-[11px] tracking-widest text-white/80">CLIENT LOVE</p>
             <CardTitle className="mt-1 text-xl text-white">
@@ -106,7 +112,8 @@ export function Features() {
               />
             </div>
           </CardContent>
-        </Card>
+          </Card>
+        </ScrollReveal>
       </div>
     </section>
   )

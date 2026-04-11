@@ -129,10 +129,10 @@ export function Pricing() {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 lg:grid-cols-3 stagger-children">
           {/* Startup */}
           <Card
-            className="relative overflow-hidden rounded-2xl liquid-glass shadow-[0_12px_40px_rgba(0,0,0,0.3)] transition-all duration-300"
+            className="relative overflow-hidden rounded-2xl liquid-glass shadow-[0_12px_40px_rgba(0,0,0,0.3)] glass-card-interactive group"
             itemScope
             itemType="https://schema.org/Offer"
           >
@@ -182,7 +182,7 @@ export function Pricing() {
 
           {/* Pro */}
           <Card
-            className="relative overflow-hidden rounded-2xl liquid-glass shadow-[0_12px_40px_rgba(0,0,0,0.3)] transition-all duration-300"
+            className="relative overflow-hidden rounded-2xl liquid-glass shadow-[0_12px_40px_rgba(0,0,0,0.3)] glass-card-interactive group"
             itemScope
             itemType="https://schema.org/Offer"
           >
@@ -226,7 +226,7 @@ export function Pricing() {
 
           {/* Premium */}
           <Card
-            className="relative overflow-hidden rounded-2xl liquid-glass-enhanced shadow-[0_16px_50px_rgba(0,0,0,0.4)] transition-all duration-300"
+            className="relative overflow-hidden rounded-2xl liquid-glass-enhanced shadow-[0_16px_50px_rgba(0,0,0,0.4)] glass-card-interactive group rotating-border"
             itemScope
             itemType="https://schema.org/Offer"
           >

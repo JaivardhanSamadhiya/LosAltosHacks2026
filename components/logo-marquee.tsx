@@ -31,17 +31,17 @@ export function LogoMarquee() {
 
   const LogoCard = ({ logo, rowId }: { logo: any; rowId: string }) => (
     <div
-      className="flex-shrink-0 mx-3"
+      className="flex-shrink-0 mx-3 group"
       onMouseEnter={() => setPausedRow(rowId)}
       onMouseLeave={() => setPausedRow(null)}
     >
-      <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-2xl bg-black/40 border border-white/20 backdrop-blur-xl flex items-center justify-center overflow-hidden">
-        <div className="relative w-full h-full">
+      <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-2xl bg-black/40 border border-white/20 backdrop-blur-xl flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:scale-110 group-hover:border-lime-300/50 group-hover:shadow-[0_0_20px_rgba(163,230,53,0.2)]">
+        <div className="relative w-full h-full transition-transform duration-300 group-hover:scale-105">
           <Image
             src={logo.image || "/placeholder.svg"}
             alt={logo.name}
             fill
-            className="object-cover"
+            className="object-cover transition-all duration-300 group-hover:brightness-110"
             sizes="(min-width: 1024px) 128px, (min-width: 640px) 112px, 96px"
           />
         </div>

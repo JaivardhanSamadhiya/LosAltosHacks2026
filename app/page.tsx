@@ -1,6 +1,9 @@
 import { SiteHeader } from "@/components/site-header"
 import { Hero } from "@/components/hero"
 import { Features } from "@/components/features"
+import { StatsSection } from "@/components/stats-section"
+import { ProcessSection } from "@/components/process-section"
+import { TestimonialsSection } from "@/components/testimonials-section"
 import { LogoMarquee } from "@/components/logo-marquee"
 import { Pricing } from "@/components/pricing"
 import { AppverseFooter } from "@/components/appverse-footer"
@@ -83,7 +86,10 @@ export default function Page() {
       <main className="min-h-[100dvh] text-white">
         <SiteHeader />
         <Hero />
+        <StatsSection />
         <Features />
+        <ProcessSection />
+        <TestimonialsSection />
         <LogoMarquee />
         <Pricing />
         <AppverseFooter />
