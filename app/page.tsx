@@ -9,7 +9,7 @@ import { Pricing } from "@/components/pricing"
 import { AppverseFooter } from "@/components/appverse-footer"
 import Script from "next/script"
 
-// ✅ Force static generation for low TTFB
+// Force static generation for low TTFB
 export const dynamic = "force-static"
 
 export default function Page() {
@@ -17,35 +17,35 @@ export default function Page() {
   const pricingStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebPageElement",
-    "@id": "https://theskitbit.com/#pricing",
+    "@id": "https://civicdigitaltwin.com/#pricing",
     name: "Pricing Plans",
-    description: "3D Animation pricing plans - Startup, Pro, and Premium packages for all business needs",
-    url: "https://theskitbit.com/#pricing",
+    description: "Civic Digital Twin pricing plans - Starter, Pro, and Enterprise packages for cities of all sizes",
+    url: "https://civicdigitaltwin.com/#pricing",
     mainEntity: {
       "@type": "PriceSpecification",
-      name: "3D Animation Services",
-      description: "Professional 3D animation services with three pricing tiers",
+      name: "City Simulation Services",
+      description: "AI-powered urban simulation platform with three pricing tiers",
       offers: [
         {
           "@type": "Offer",
-          name: "Startup Plan",
-          price: "299",
+          name: "Starter Plan",
+          price: "99",
           priceCurrency: "USD",
-          description: "Up to 15s 3D Animation with 2 revisions",
+          description: "1 neighborhood model with basic climate modeling",
         },
         {
           "@type": "Offer",
           name: "Pro Plan",
-          price: "699",
+          price: "299",
           priceCurrency: "USD",
-          description: "Up to 25s 3D Animation with 4 revisions",
+          description: "Full city district with advanced AI scenario planning",
         },
         {
           "@type": "Offer",
-          name: "Premium Plan",
-          price: "2049",
+          name: "Enterprise Plan",
+          price: "999",
           priceCurrency: "USD",
-          description: "40-60s 3D Animation with unlimited revisions",
+          description: "Unlimited cities with custom AI models and 24/7 support",
         },
       ],
     },
@@ -55,28 +55,27 @@ export default function Page() {
   const pageStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": "https://theskitbit.com/",
-    name: "Skitbit | 3D Animation Made Simple, Reliable & Scalable",
+    "@id": "https://civicdigitaltwin.com/",
+    name: "Civic Digital Twin | AI-Powered City Simulation Platform",
     description:
-      "From product launches to full-scale campaigns, Skitbit delivers 3D animation that’s fast, consistent, and built to wow your audience.",
-    url: "https://theskitbit.com/",
+      "Simulate climate impacts, optimize resources, and make data-driven decisions for sustainable urban planning with our AI-powered city simulation platform.",
+    url: "https://civicdigitaltwin.com/",
     mainEntity: {
       "@type": "Organization",
-      name: "Skitbit",
-      url: "https://theskitbit.com",
+      name: "Civic Digital Twin",
+      url: "https://civicdigitaltwin.com",
       sameAs: [
-        "https://twitter.com/theskitbit",
-        "https://www.youtube.com/@skitbitinternational",
-        "https://instagram.com/theskitbit",
-        "https://threads.com/theskitbit",
+        "https://twitter.com/civicdigitaltwin",
+        "https://linkedin.com/company/civicdigitaltwin",
+        "https://youtube.com/@civicdigitaltwin",
       ],
     },
     hasPart: [
       {
         "@type": "WebPageElement",
-        "@id": "https://theskitbit.com/#pricing",
+        "@id": "https://civicdigitaltwin.com/#pricing",
         name: "Pricing Section",
-        url: "https://theskitbit.com/#pricing",
+        url: "https://civicdigitaltwin.com/#pricing",
       },
     ],
   }

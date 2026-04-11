@@ -1,35 +1,35 @@
 "use client"
 
 import { ScrollReveal } from "./scroll-reveal"
-import { MessageSquare, Palette, Clapperboard, Rocket } from "lucide-react"
+import { MessageSquare, Map, Clapperboard, Rocket } from "lucide-react"
 
 const steps = [
   {
     number: "01",
     icon: MessageSquare,
-    title: "Discovery Call",
-    description: "We understand your brand, goals, and vision in a quick 15-minute call.",
+    title: "Connect Your Data",
+    description: "Integrate your city's climate, infrastructure, and population data sources.",
     color: "from-lime-400 to-lime-300",
   },
   {
     number: "02",
-    icon: Palette,
-    title: "Concept & Storyboard",
-    description: "Our team creates detailed storyboards and mood boards for approval.",
+    icon: Map,
+    title: "Build Your Twin",
+    description: "Our AI creates a digital replica of your city with real-time modeling.",
     color: "from-purple-500 to-purple-400",
   },
   {
     number: "03",
     icon: Clapperboard,
-    title: "3D Production",
-    description: "We model, texture, light, and animate your product with precision.",
+    title: "Run Simulations",
+    description: "Test scenarios, policies, and interventions before real-world implementation.",
     color: "from-cyan-500 to-cyan-400",
   },
   {
     number: "04",
     icon: Rocket,
-    title: "Delivery & Launch",
-    description: "Receive render-ready files optimized for all platforms.",
+    title: "Deploy & Monitor",
+    description: "Launch optimized strategies and track outcomes in real-time.",
     color: "from-orange-500 to-orange-400",
   },
 ]
@@ -39,12 +39,12 @@ export function ProcessSection() {
     <section className="py-16 sm:py-24 relative">
       <div className="container mx-auto px-4">
         <ScrollReveal className="text-center mb-16">
-          <p className="text-[11px] tracking-widest text-lime-300/80 mb-2">OUR PROCESS</p>
+          <p className="text-[11px] tracking-widest text-lime-300/80 mb-2">HOW IT WORKS</p>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
-            From idea to <span className="text-lime-300">launch</span> in 4 steps
+            From data to <span className="text-lime-300">action</span> in 4 steps
           </h2>
           <p className="text-neutral-400 max-w-xl mx-auto">
-            A streamlined workflow designed to deliver stunning results without the usual agency headaches.
+            A streamlined workflow designed to deliver actionable insights without complexity.
           </p>
         </ScrollReveal>
 

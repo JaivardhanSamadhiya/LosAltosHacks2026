@@ -7,27 +7,27 @@ import Image from "next/image"
 const testimonials = [
   {
     name: "Sarah Chen",
-    role: "Marketing Director",
-    company: "TechFlow",
+    role: "City Planning Director",
+    company: "Metro Council",
     image: "/images/archviz/client-love-1.jpg",
     rating: 5,
-    quote: "Skitbit transformed our product launch. The 3D animations captured attention instantly and our conversion rate jumped 40%.",
+    quote: "Civic Digital Twin transformed our climate planning. The AI simulations helped us identify risk zones we never knew existed.",
   },
   {
     name: "Marcus Rodriguez",
-    role: "Founder & CEO",
-    company: "Nexa Wellness",
+    role: "Chief Resilience Officer",
+    company: "Urban Innovation Lab",
     image: "/images/archviz/client-love-2.jpg",
     rating: 5,
-    quote: "Working with Skitbit felt effortless. They understood our vision immediately and delivered beyond expectations.",
+    quote: "Working with this platform felt effortless. We reduced our scenario planning time by 80% while improving accuracy.",
   },
   {
     name: "Emily Watson",
-    role: "Creative Lead",
-    company: "Bloom Studio",
+    role: "Smart City Lead",
+    company: "Regional Authority",
     image: "/images/top-rated-1.png",
     rating: 5,
-    quote: "The quality is exceptional. Every frame looks like it belongs in a premium commercial. Highly recommend!",
+    quote: "The real-time mapping and AI copilot are game-changers. Every city planner should have access to this technology.",
   },
 ]
 
@@ -42,10 +42,10 @@ export function TestimonialsSection() {
         <ScrollReveal className="text-center mb-16">
           <p className="text-[11px] tracking-widest text-lime-300/80 mb-2">TESTIMONIALS</p>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
-            What our <span className="text-lime-300">clients</span> say
+            What <span className="text-lime-300">city leaders</span> say
           </h2>
           <p className="text-neutral-400 max-w-xl mx-auto">
-            {"Don't just take our word for it. Here's what brands love about working with us."}
+            {"Don't just take our word for it. Here's what urban planners love about our platform."}
           </p>
         </ScrollReveal>
 

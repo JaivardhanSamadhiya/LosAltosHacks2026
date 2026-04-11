@@ -8,28 +8,28 @@ export function LogoMarquee() {
   const [pausedRow, setPausedRow] = useState<string | null>(null)
 
   const logos = [
-    { name: "VICTORINOX", image: "/icons/Victorinox.png" },
-    { name: "", image: "/icons/Trumpp.png" },
-    { name: "Skitbit", image: "/icons/Poedagarr.png" },
-    { name: "VK", image: "/icons/Supp.png" },
-    { name: "TechCrunch", image: "/icons/SHKUP.png" },
-    { name: "MailChimp", image: "/icons/Persona.png" },
-    { name: "ESJ", image: "/icons/HFFB.png" },
-    { name: "Kickstarter", image: "/icons/Palladio.png" },
+    { name: "Metro Council", image: "/icons/Victorinox.png" },
+    { name: "Urban Lab", image: "/icons/Trumpp.png" },
+    { name: "City Planning", image: "/icons/Poedagarr.png" },
+    { name: "Regional Authority", image: "/icons/Supp.png" },
+    { name: "Smart Cities", image: "/icons/SHKUP.png" },
+    { name: "Climate Institute", image: "/icons/Persona.png" },
+    { name: "Resilience Hub", image: "/icons/HFFB.png" },
+    { name: "Innovation Center", image: "/icons/Palladio.png" },
   ]
 
   const secondRowLogos = [
-    { name: "StumbleUpon", image: "/icons/Kami.png" },
-    { name: "Microsoft", image: "/icons/NEEMANS.png" },
-    { name: "CleanMyMac", image: "/icons/FLICK.png" },
-    { name: "Google", image: "/icons/Vandelay.png" },
-    { name: "Behance", image: "/icons/KEJBYKEJ.png" },
-    { name: "Apple", image: "/icons/Skinny.png" },
-    { name: "TransferWise", image: "/icons/RICO.png" },
-    { name: "Medium", image: "/icons/Skyborne.png" },
+    { name: "Urban Strategy", image: "/icons/Kami.png" },
+    { name: "Infrastructure", image: "/icons/NEEMANS.png" },
+    { name: "Planning Dept", image: "/icons/FLICK.png" },
+    { name: "City Analytics", image: "/icons/Vandelay.png" },
+    { name: "GovTech", image: "/icons/KEJBYKEJ.png" },
+    { name: "Sustainability", image: "/icons/Skinny.png" },
+    { name: "Data Services", image: "/icons/RICO.png" },
+    { name: "Research Lab", image: "/icons/Skyborne.png" },
   ]
 
-  const LogoCard = ({ logo, rowId }: { logo: any; rowId: string }) => (
+  const LogoCard = ({ logo, rowId }: { logo: { name: string; image: string }; rowId: string }) => (
     <div
       className="flex-shrink-0 mx-3 group"
       onMouseEnter={() => setPausedRow(rowId)}
@@ -55,9 +55,9 @@ export function LogoMarquee() {
         {/* Header */}
         <div className="flex flex-col items-center justify-between mb-12 sm:flex-row sm:items-center">
           <h2 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl text-center sm:text-left">
-            Meet our <span className="text-lime-300">top-tier</span>
+            Trusted by <span className="text-lime-300">leading</span>
             <br />
-            customers
+            city planners
           </h2>
           <Button
             variant="outline"

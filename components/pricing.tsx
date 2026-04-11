@@ -9,7 +9,7 @@ import { ExamplesDialog } from "./examples-dialog"
 
 type Feature = { text: string; muted?: boolean }
 
-const ACCENT = "#06B6D4" // Cyan color for Civic
+const ACCENT = "#a3e635" // Lime-400
 
 function FeatureItem({ text, muted = false }: Feature) {
   return (
@@ -24,16 +24,16 @@ type Currency = "INR" | "USD"
 
 const PRICES: Record<Currency, { startup: string; pro: string; premium: string; save: string }> = {
   INR: {
-    startup: "₹5,000/mo",
-    pro: "₹15,000/mo",
-    premium: "₹50,000/mo",
-    save: "Save Flat ₹5,000/-",
+    startup: "₹8,000/mo",
+    pro: "₹25,000/mo",
+    premium: "₹80,000/mo",
+    save: "Save Flat ₹8,000/-",
   },
   USD: {
-    startup: "$60/mo",
-    pro: "$180/mo",
-    premium: "$600/mo",
-    save: "Save $30",
+    startup: "$99/mo",
+    pro: "$299/mo",
+    premium: "$999/mo",
+    save: "Save $99",
   },
 }
 
@@ -114,13 +114,13 @@ export function Pricing() {
             Simple, Transparent Pricing
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-sm text-neutral-300" itemProp="description">
-            Subscription-based access to AI-powered urban simulations with full support and updates included.
+            Subscription-based access to AI-powered city simulations with full support and regular platform updates.
           </p>
           <div className="mt-6">
             <Button
               asChild
-              className="rounded-full px-5 text-white hover:brightness-110"
-              style={{ backgroundColor: ACCENT, color: "#000" }}
+              className="rounded-full px-5 text-black hover:brightness-110"
+              style={{ backgroundColor: ACCENT }}
             >
               <Link href="https://wa.link/civic-demo" target="_blank">
                 Request Demo
@@ -155,8 +155,8 @@ export function Pricing() {
               </div>
               <Button
                 type="button"
-                onClick={() => setOpenPlan("Starter")}
-                onTouchStart={() => setOpenPlan("Starter")}
+                onClick={() => setOpenPlan("Startup")}
+                onTouchStart={() => setOpenPlan("Startup")}
                 className="w-full rounded-full px-4 py-2 text-sm font-medium transition-colors"
                 style={{ backgroundColor: "#0a0a0a", color: ACCENT, border: `1px solid ${ACCENT}` }}
               >
@@ -166,12 +166,12 @@ export function Pricing() {
             <CardContent className="pt-0">
               <ul className="grid gap-2" itemProp="description">
                 {[
-                  "1 small neighborhood",
-                  "Basic climate modeling",
+                  "1 small neighborhood model",
+                  "Basic climate risk modeling",
                   "Email support",
-                  "Monthly updates",
+                  "Monthly data updates",
                   "API access (basic)",
-                  "Community forum",
+                  "Community forum access",
                 ].map((f, i) => (
                   <FeatureItem key={i} text={f} />
                 ))}
@@ -210,13 +210,13 @@ export function Pricing() {
             <CardContent className="pt-0">
               <ul className="grid gap-2" itemProp="description">
                 {[
-                  "Full city district",
-                  "Advanced AI modeling",
-                  "Priority support",
-                  "Bi-weekly updates",
-                  "API access (pro)",
-                  "Multi-scenario planning",
-                  "Custom dashboards",
+                  "Full city district modeling",
+                  "Advanced AI scenario planning",
+                  "Priority support (24h response)",
+                  "Bi-weekly data updates",
+                  "Full API access",
+                  "Multi-scenario comparison",
+                  "Custom dashboard views",
                 ].map((f, i) => (
                   <FeatureItem key={i} text={f} />
                 ))}
@@ -244,8 +244,8 @@ export function Pricing() {
               </div>
               <Button
                 type="button"
-                onClick={() => setOpenPlan("Enterprise")}
-                onTouchStart={() => setOpenPlan("Enterprise")}
+                onClick={() => setOpenPlan("Premium")}
+                onTouchStart={() => setOpenPlan("Premium")}
                 className="w-full rounded-full px-4 py-2 text-sm font-medium transition-colors"
                 style={{ backgroundColor: ACCENT, color: "#000", fontWeight: "bold" }}
               >
@@ -256,13 +256,13 @@ export function Pricing() {
               <ul className="grid gap-2" itemProp="description">
                 {[
                   "Unlimited cities & districts",
-                  "Custom AI models",
-                  "24/7 dedicated support",
-                  "Real-time updates",
-                  "Full API access",
-                  "Advanced integrations",
+                  "Custom AI model training",
+                  "24/7 dedicated support team",
+                  "Real-time data integrations",
+                  "Full API with webhooks",
+                  "Third-party integrations",
                   "White-label options",
-                  "SLA guarantee",
+                  "SLA guarantee (99.9%)",
                 ].map((f, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 h-4 w-4" style={{ color: ACCENT }} />
@@ -280,7 +280,7 @@ export function Pricing() {
       <ExamplesDialog
         open={openPlan === "Startup"}
         onOpenChange={(v) => setOpenPlan(v ? "Startup" : null)}
-        planName="Startup Plan"
+        planName="Starter Plan"
         price={PRICES[currency].startup}
         videoIds={startupVideos}
       />
@@ -294,7 +294,7 @@ export function Pricing() {
       <ExamplesDialog
         open={openPlan === "Premium"}
         onOpenChange={(v) => setOpenPlan(v ? "Premium" : null)}
-        planName="Premium Plan"
+        planName="Enterprise Plan"
         price={PRICES[currency].premium}
         videoIds={premiumVideos}
       />

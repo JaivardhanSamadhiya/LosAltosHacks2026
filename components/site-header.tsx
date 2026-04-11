@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Image from "next/image"
-import { Menu, Tag, HelpCircle, FileText, Info, ChevronDown, Building2, Package } from "lucide-react"
+import { Menu, Tag, HelpCircle, FileText, Info, ChevronDown, Map, Cpu } from "lucide-react"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -21,21 +21,21 @@ export function SiteHeader() {
 
   const services = [
     {
-      href: "#mapping",
+      href: "#features",
       label: "Live City Maps",
-      icon: Building2,
+      icon: Map,
       description: "Real-time 2.5D visualization",
     },
     {
-      href: "#ai",
+      href: "#features",
       label: "AI Copilot",
-      icon: Package,
+      icon: Cpu,
       description: "Natural language planning",
     },
     {
       href: "#dashboard",
       label: "Analytics Hub",
-      icon: Package,
+      icon: FileText,
       description: "Impact measurements & insights",
     },
   ]
@@ -52,7 +52,7 @@ export function SiteHeader() {
         <div className="flex h-14 items-center justify-between px-6 liquid-glass-header rounded-full">
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="h-5 w-5 rounded bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-xs font-bold text-black">◆</div>
+            <Image src="/icons/skitbit-white.svg" alt="Civic Digital Twin logo" width={20} height={20} className="h-5 w-5" />
             <span className="font-semibold tracking-wide text-white text-sm">Civic DT</span>
           </Link>
 
@@ -62,7 +62,7 @@ export function SiteHeader() {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
-                    className="bg-transparent text-white/90 hover:text-cyan-300 data-[state=open]:text-cyan-300
+                    className="bg-transparent text-white/90 hover:text-lime-300 data-[state=open]:text-lime-300
                                hover:bg-transparent focus:bg-transparent
                                data-[state=open]:bg-transparent data-[state=open]:hover:bg-transparent
                                data-[active=true]:bg-transparent"
@@ -70,20 +70,20 @@ export function SiteHeader() {
                     Features
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[280px] gap-2 p-3 bg-gray-950/95 backdrop-blur-xl border border-cyan-400/20 rounded-lg">
+                    <ul className="grid w-[280px] gap-2 p-3 bg-gray-950/95 backdrop-blur-xl border border-lime-400/20 rounded-lg">
                       {services.map((service) => (
-                        <li key={service.href}>
+                        <li key={service.href + service.label}>
                           <NavigationMenuLink asChild>
                             <Link
                               href={service.href}
                               className="group relative flex items-start gap-3 rounded-xl p-3 transition-all
-                                         hover:bg-cyan-400/10 hover:ring-1 hover:ring-cyan-300/60
-                                         hover:shadow-[0_0_0_1px_rgba(34,211,238,0.25),0_0_20px_rgba(34,211,238,0.15)]
-                                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+                                         hover:bg-lime-400/10 hover:ring-1 hover:ring-lime-300/60
+                                         hover:shadow-[0_0_0_1px_rgba(163,230,53,0.25),0_0_20px_rgba(163,230,53,0.15)]
+                                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-300/70"
                             >
-                              <service.icon className="h-5 w-5 text-cyan-300 mt-0.5 shrink-0 group-hover:text-cyan-200" />
+                              <service.icon className="h-5 w-5 text-lime-300 mt-0.5 shrink-0 group-hover:text-lime-200" />
                               <div>
-                                <div className="text-sm font-medium text-white group-hover:text-cyan-300">
+                                <div className="text-sm font-medium text-white group-hover:text-lime-300">
                                   {service.label}
                                 </div>
                                 <p className="text-xs text-gray-400 mt-0.5">{service.description}</p>
@@ -98,7 +98,7 @@ export function SiteHeader() {
               </NavigationMenuList>
             </NavigationMenu>
             {links.map((l) => (
-              <Link key={l.href} href={l.href} className="hover:text-purple-300 transition-colors">
+              <Link key={l.href} href={l.href} className="hover:text-lime-300 transition-colors">
                 {l.label}
               </Link>
             ))}
@@ -112,7 +112,7 @@ export function SiteHeader() {
                          hover:bg-lime-300 hover:shadow-md hover:scale-[1.02]
                          transition-all"
             >
-              <Link href="#contact">Chat With Us</Link>
+              <Link href="#contact">Request Demo</Link>
             </Button>
           </div>
 
@@ -132,33 +132,33 @@ export function SiteHeader() {
               <SheetContent side="right" className="liquid-glass border-gray-800 p-0 w-64 flex flex-col">
                 {/* Brand Header */}
                 <div className="flex items-center gap-1.5 px-4 py-4 border-b border-gray-800">
-                  <Image src="/icons/skitbit-white.svg" alt="Skitbit logo" width={24} height={24} className="h-6 w-6" />
-                  <span className="font-semibold tracking-wide text-white text-lg">Skitbit</span>
+                  <Image src="/icons/skitbit-white.svg" alt="Civic Digital Twin logo" width={24} height={24} className="h-6 w-6" />
+                  <span className="font-semibold tracking-wide text-white text-lg">Civic DT</span>
                 </div>
 
                 {/* Nav Links */}
                 <nav className="flex flex-col gap-1 mt-2 text-gray-200">
                   <Collapsible open={servicesOpen} onOpenChange={setServicesOpen}>
-                    <CollapsibleTrigger className="flex items-center justify-between w-full px-4 py-3 hover:bg-gray-900 hover:text-purple-300 transition-colors">
+                    <CollapsibleTrigger className="flex items-center justify-between w-full px-4 py-3 hover:bg-gray-900 hover:text-lime-300 transition-colors">
                       <div className="flex items-center gap-3">
                         <span className="inline-flex items-center justify-center w-5 h-5 text-gray-400">
-                          <Building2 className="h-4 w-4" />
+                          <Cpu className="h-4 w-4" />
                         </span>
-                        <span className="text-sm">Services</span>
+                        <span className="text-sm">Features</span>
                       </div>
                       <ChevronDown
                         className={`h-4 w-4 text-gray-400 transition-transform ${servicesOpen ? "rotate-180" : ""}`}
                       />
                     </CollapsibleTrigger>
                     <CollapsibleContent>
-                      <div className="flex flex-col bg-gray-900/50 border-l-2 border-purple-300/30 ml-4">
+                      <div className="flex flex-col bg-gray-900/50 border-l-2 border-lime-300/30 ml-4">
                         {services.map((service) => (
                           <Link
-                            key={service.href}
+                            key={service.href + service.label}
                             href={service.href}
-                            className="flex items-center gap-3 pl-8 pr-4 py-2.5 hover:bg-gray-900 hover:text-purple-300 transition-colors"
+                            className="flex items-center gap-3 pl-8 pr-4 py-2.5 hover:bg-gray-900 hover:text-lime-300 transition-colors"
                           >
-                            <service.icon className="h-4 w-4 text-purple-300/70" />
+                            <service.icon className="h-4 w-4 text-lime-300/70" />
                             <span className="text-sm">{service.label}</span>
                           </Link>
                         ))}
@@ -170,7 +170,7 @@ export function SiteHeader() {
                     <Link
                       key={l.href}
                       href={l.href}
-                      className="flex items-center gap-3 px-4 py-3 hover:bg-gray-900 hover:text-purple-300 transition-colors"
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-gray-900 hover:text-lime-300 transition-colors"
                     >
                       <span className="inline-flex items-center justify-center w-5 h-5 text-gray-400">
                         <l.icon className="h-4 w-4" />
@@ -188,7 +188,7 @@ export function SiteHeader() {
                                hover:bg-lime-300 hover:shadow-md hover:scale-[1.02]
                                transition-all"
                   >
-                    <Link href="https://wa.link/65mf3i">Get a Quote</Link>
+                    <Link href="https://wa.link/civic-demo">Request Demo</Link>
                   </Button>
                 </div>
               </SheetContent>

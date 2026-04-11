@@ -11,9 +11,9 @@ import { Analytics } from "@vercel/analytics/react"
 const inter = Inter({ subsets: ["latin"], display: "swap" })
 
 export const metadata: Metadata = {
-  title: "Skitbit | 3D Animation Made Simple, Reliable & Scalable",
+  title: "Civic Digital Twin | AI-Powered City Simulation Platform",
   description:
-    "From product launches to full-scale campaigns, Skitbit delivers 3D animation that's fast, consistent, and built to wow your audience.",
+    "Simulate climate impacts, optimize resources, and make data-driven decisions for sustainable urban planning with our AI-powered city simulation platform.",
   generator: "v0.app",
 }
 
@@ -83,7 +83,7 @@ export default function RootLayout({
       <body>
         <Suspense fallback={null}>
           <div className="fixed inset-0 z-0 bg-black">
-            <Plasma color="#8b5cf6" speed={0.8} direction="forward" scale={1.5} opacity={0.4} mouseInteractive={true} />
+            <Plasma color="#84cc16" speed={0.8} direction="forward" scale={1.5} opacity={0.4} mouseInteractive={true} />
           </div>
           <div className="relative z-10">{children}</div>
         </Suspense>
