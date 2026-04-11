@@ -1,119 +1,89 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { Star } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollReveal } from "./scroll-reveal"
+import { Globe, Brain, BarChart3, Clock, Shield, Zap } from "lucide-react"
 
-interface FeaturesContent {
-  title: string
-  subtitle: string
-}
-
-const defaultContent: FeaturesContent = {
-  title: "What makes our platform the best for you.",
-  subtitle: "Discover our unique approach to city simulation",
-}
+const features = [
+  {
+    icon: Globe,
+    title: "Real-Time City Mapping",
+    description: "Interactive 2.5D visualization with dynamic heatmaps showing risk zones, resources, and population density across your entire urban area.",
+    color: "text-blue-400",
+    bgColor: "bg-blue-400/10",
+  },
+  {
+    icon: Brain,
+    title: "AI-Powered Analysis",
+    description: "Our AI copilot understands natural language queries and provides instant scenario analysis with actionable recommendations.",
+    color: "text-purple-400",
+    bgColor: "bg-purple-400/10",
+  },
+  {
+    icon: BarChart3,
+    title: "Impact Projections",
+    description: "Model the effects of interventions before implementation. See projected changes in risk, efficiency, and resource utilization.",
+    color: "text-lime-400",
+    bgColor: "bg-lime-400/10",
+  },
+  {
+    icon: Clock,
+    title: "Rapid Scenario Testing",
+    description: "Evaluate policy options in minutes instead of months. Compare multiple scenarios side-by-side with detailed metrics.",
+    color: "text-orange-400",
+    bgColor: "bg-orange-400/10",
+  },
+  {
+    icon: Shield,
+    title: "Climate Resilience",
+    description: "Specifically designed for heat vulnerability, flood risk, and emergency response planning in the face of climate change.",
+    color: "text-cyan-400",
+    bgColor: "bg-cyan-400/10",
+  },
+  {
+    icon: Zap,
+    title: "Instant Updates",
+    description: "Real-time data integration means your digital twin stays synchronized with actual city conditions and sensor data.",
+    color: "text-yellow-400",
+    bgColor: "bg-yellow-400/10",
+  },
+]
 
 export function Features() {
-  const [content, setContent] = useState<FeaturesContent>(defaultContent)
-
-  useEffect(() => {
-    // Load content from localStorage
-    const savedContent = localStorage.getItem("skitbit-content")
-    if (savedContent) {
-      try {
-        const parsed = JSON.parse(savedContent)
-        if (parsed.features) {
-          setContent(parsed.features)
-        }
-      } catch (error) {
-        console.error("Error parsing saved content:", error)
-      }
-    }
-  }, [])
-
   return (
     <section id="features" className="container mx-auto px-4 py-16 sm:py-20">
       <ScrollReveal>
-        <h2 className="mb-8 text-center text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
-          {content.title}
-        </h2>
+        <div className="text-center mb-12">
+          <p className="text-[11px] tracking-widest text-lime-300/80 mb-2">PLATFORM CAPABILITIES</p>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-4">
+            Everything you need for <span className="text-lime-300">smarter planning</span>
+          </h2>
+          <p className="text-neutral-400 max-w-2xl mx-auto">
+            A comprehensive toolkit for urban planners, emergency managers, and city officials.
+          </p>
+        </div>
       </ScrollReveal>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        {/* Adaptability Card - Hidden on mobile */}
-        <ScrollReveal delay={100}>
-          <Card className="hidden md:block liquid-glass border border-white/20 glass-card-interactive h-full">
-          <CardHeader>
-            <p className="text-[11px] tracking-widest text-white/80">REAL-TIME SIMULATION</p>
-            <CardTitle className="mt-1 text-xl text-white">AI-powered urban modeling at your fingertips</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-white/10">
-                <Image
-                  src="/images/intuitive-1.png"
-                  alt="Interactive city map with heatmap overlay"
-                  fill
-                  className="object-cover"
-                  sizes="(min-width: 768px) 240px, 45vw"
-                  priority={false}
-                />
-              </div>
-              <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-white/10">
-                <Image
-                  src="/images/intuitive-2.png"
-                  alt="Scenario planning dashboard interface"
-                  fill
-                  className="object-cover"
-                  sizes="(min-width: 768px) 240px, 45vw"
-                  priority={false}
-                />
-              </div>
-            </div>
-          </CardContent>
-          </Card>
-        </ScrollReveal>
-
-        {/* Client Love Card - Always visible */}
-        <ScrollReveal delay={200}>
-          <Card className="liquid-glass border border-white/20 glass-card-interactive h-full">
-          <CardHeader>
-            <p className="text-[11px] tracking-widest text-white/80">TRUSTED BY CITIES</p>
-            <CardTitle className="mt-1 text-xl text-white">
-              The platform transformed how we plan for climate resilience — our response times improved by 40%.
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="mb-6 flex items-end gap-4">
-              <div className="text-5xl font-bold text-lime-300">4.9</div>
-              <div className="flex items-center gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-lime-300 text-lime-300" />
-                ))}
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <Image
-                src={"/images/top-rated-1.png"}
-                width={280}
-                height={160}
-                alt="City planning dashboard with risk analytics"
-                className="h-full w-full rounded-xl border border-white/10 object-cover"
-              />
-              <Image
-                src={"/images/top-rated-2.png"}
-                width={280}
-                height={160}
-                alt="Urban simulation results visualization"
-                className="h-full w-full rounded-xl border border-white/10 object-cover"
-              />
-            </div>
-          </CardContent>
-          </Card>
-        </ScrollReveal>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {features.map((feature, index) => (
+          <ScrollReveal key={feature.title} delay={index * 100}>
+            <Card className="liquid-glass border border-white/10 glass-card-interactive h-full group">
+              <CardHeader>
+                <div className={`w-12 h-12 rounded-xl ${feature.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                  <feature.icon className={`w-6 h-6 ${feature.color}`} />
+                </div>
+                <CardTitle className="text-lg text-white group-hover:text-lime-300 transition-colors">
+                  {feature.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-neutral-400 leading-relaxed">
+                  {feature.description}
+                </p>
+              </CardContent>
+            </Card>
+          </ScrollReveal>
+        ))}
       </div>
     </section>
   )

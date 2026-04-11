@@ -1,41 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Twitter, Linkedin, Youtube, MessageCircle } from "lucide-react"
-import LazyVideo from "./lazy-video"
-import Image from "next/image"
-
-interface FooterContent {
-  tagline: string
-  copyright: string
-}
-
-const defaultContent: FooterContent = {
-  tagline: "AI-powered city simulation for climate resilience. We help urban planners make smarter, data-driven decisions.",
-  copyright: "2025 Civic Digital Twin",
-}
+import { Twitter, Linkedin, Github, Mail, Layers } from "lucide-react"
 
 export function AppverseFooter() {
-  const [content, setContent] = useState<FooterContent>(defaultContent)
-
-  useEffect(() => {
-    // Load content from localStorage
-    const savedContent = localStorage.getItem("skitbit-content")
-    if (savedContent) {
-      try {
-        const parsed = JSON.parse(savedContent)
-        if (parsed.footer) {
-          setContent(parsed.footer)
-        }
-      } catch (error) {
-        console.error("Error parsing saved content:", error)
-      }
-    }
-  }, [])
-
   return (
     <section className="text-white">
       {/* Contact CTA */}
@@ -45,56 +15,32 @@ export function AppverseFooter() {
             asChild
             className="rounded-full bg-lime-400 px-6 py-2 text-sm font-medium text-black shadow-[0_0_20px_rgba(163,230,53,0.35)] hover:bg-lime-300"
           >
-            <a href="https://wa.link/civic-demo" target="_blank" rel="noopener noreferrer">
-              Contact Us
+            <a href="mailto:hello@civicdigitaltwin.com">
+              Get In Touch
             </a>
           </Button>
         </div>
       </div>
 
-      {/* Download the app */}
+      {/* CTA Card */}
       <div className="container mx-auto px-4 py-12 sm:py-16">
         <Card className="relative overflow-hidden rounded-3xl liquid-glass p-6 sm:p-10">
-          <div className="relative grid items-center gap-8 md:grid-cols-2">
-            {/* Left copy */}
-            <div>
-              <p className="mb-2 text-[11px] tracking-widest text-lime-300">MOBILE ACCESS</p>
-              <h3 className="text-2xl font-bold leading-tight text-white sm:text-3xl">
-                Monitor your city simulations from anywhere
-              </h3>
-              <p className="mt-2 max-w-prose text-sm text-neutral-400">
-                Access real-time dashboards, receive alerts, and review simulation results on the go. Stay connected to your city&apos;s digital twin.
-              </p>
-            </div>
-
-            {/* Right mockup */}
-            <div className="mx-auto w-full max-w-[320px]">
-              <div className="relative rounded-[28px] liquid-glass p-2 shadow-2xl">
-                <div className="relative aspect-[9/19] w-full overflow-hidden rounded-2xl bg-black">
-                  {/* Lazy-loaded video fills the screen */}
-                  <LazyVideo
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Timeline%202-YFaCK7cEiHWSMRv8XEHaLCoYj2SUAi.mp4"
-                    className="absolute inset-0 h-full w-full object-cover"
-                    autoplay={true}
-                    loop={true}
-                    muted={true}
-                    playsInline={true}
-                    aria-label="Civic Digital Twin mobile app preview"
-                  />
-                  {/* On-screen content */}
-                  <div className="relative p-3">
-                    <div className="mx-auto mb-3 h-1.5 w-16 rounded-full bg-white/20" />
-                    <div className="space-y-1 px-1">
-                      <div className="text-5xl font-extrabold text-lime-300">Real-Time Monitoring</div>
-                      <p className="text-xs text-white/80">City insights at your fingertips</p>
-                      <div className="mt-3 inline-flex items-center rounded-full bg-black/40 px-2 py-0.5 text-[10px] uppercase tracking-wider text-lime-300">
-                        Always Connected
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="relative text-center max-w-2xl mx-auto">
+            <p className="mb-2 text-[11px] tracking-widest text-lime-300">COMING SOON</p>
+            <h3 className="text-2xl font-bold leading-tight text-white sm:text-3xl mb-4">
+              Building the future of urban planning
+            </h3>
+            <p className="text-sm text-neutral-400 mb-6">
+              Civic Digital Twin is currently in development. We&apos;re working with pilot cities to refine our AI simulation platform. Interested in early access or collaboration?
+            </p>
+            <Button
+              asChild
+              className="bg-lime-400 text-black hover:bg-lime-300"
+            >
+              <a href="mailto:hello@civicdigitaltwin.com">
+                Join the Pilot Program
+              </a>
+            </Button>
           </div>
         </Card>
       </div>
@@ -106,10 +52,14 @@ export function AppverseFooter() {
             {/* Brand */}
             <div className="space-y-3">
               <div className="flex items-center gap-1.5">
-                <Image src="/icons/skitbit-white.svg" alt="Civic Digital Twin logo" width={24} height={24} className="h-6 w-6" />
+                <div className="h-6 w-6 rounded-lg bg-lime-400 flex items-center justify-center">
+                  <Layers className="w-4 h-4 text-black" />
+                </div>
                 <span className="text-xl font-semibold text-white">Civic Digital Twin</span>
               </div>
-              <p className="max-w-sm text-sm text-neutral-400">{content.tagline}</p>
+              <p className="max-w-sm text-sm text-neutral-400">
+                An AI-powered city simulation platform for climate resilience and sustainable urban planning. Currently in development.
+              </p>
             </div>
 
             {/* Navigation */}
@@ -117,9 +67,12 @@ export function AppverseFooter() {
               <div>
                 <h5 className="mb-2 text-xs font-semibold uppercase tracking-widest text-neutral-400">Navigation</h5>
                 <ul className="space-y-2 text-sm text-neutral-300">
-                  {["Home", "Features", "Testimonials", "Pricing", "Dashboard", "Contact"].map((item) => (
+                  {["Home", "Features", "Demo", "How It Works", "Contact"].map((item) => (
                     <li key={item}>
-                      <Link href={`#${item.toLowerCase()}`} className="hover:text-lime-300">
+                      <Link 
+                        href={item === "Demo" ? "#simulation" : item === "How It Works" ? "#process" : `#${item.toLowerCase()}`} 
+                        className="hover:text-lime-300"
+                      >
                         {item}
                       </Link>
                     </li>
@@ -129,6 +82,16 @@ export function AppverseFooter() {
               <div>
                 <h5 className="mb-2 text-xs font-semibold uppercase tracking-widest text-neutral-400">Connect</h5>
                 <ul className="space-y-2 text-sm text-neutral-300">
+                  <li className="flex items-center gap-2">
+                    <Mail className="h-4 w-4 text-neutral-400" />
+                    <a
+                      href="mailto:hello@civicdigitaltwin.com"
+                      className="hover:text-lime-300"
+                      aria-label="Email Civic Digital Twin"
+                    >
+                      Email
+                    </a>
+                  </li>
                   <li className="flex items-center gap-2">
                     <Twitter className="h-4 w-4 text-neutral-400" />
                     <a
@@ -154,27 +117,15 @@ export function AppverseFooter() {
                     </a>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Youtube className="h-4 w-4 text-neutral-400" />
+                    <Github className="h-4 w-4 text-neutral-400" />
                     <a
-                      href="https://youtube.com/@civicdigitaltwin"
+                      href="https://github.com/civicdigitaltwin"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-lime-300"
-                      aria-label="Subscribe to Civic Digital Twin on YouTube"
+                      aria-label="View Civic Digital Twin on GitHub"
                     >
-                      YouTube
-                    </a>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <MessageCircle className="h-4 w-4 text-neutral-400" />
-                    <a
-                      href="https://wa.link/civic-demo"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-lime-300"
-                      aria-label="Contact us on WhatsApp"
-                    >
-                      WhatsApp
+                      GitHub
                     </a>
                   </li>
                 </ul>
@@ -184,7 +135,7 @@ export function AppverseFooter() {
 
           {/* Bottom bar */}
           <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-neutral-500 sm:flex-row">
-            <p>{content.copyright}</p>
+            <p>2025 Civic Digital Twin. In development.</p>
             <div className="flex items-center gap-6">
               <Link href="/privacy" className="hover:text-lime-300">
                 Privacy Policy
