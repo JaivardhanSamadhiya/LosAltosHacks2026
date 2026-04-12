@@ -1,13 +1,20 @@
 import { convertToModelMessages, streamText, UIMessage } from "ai"
+import { createAnthropic } from "@ai-sdk/anthropic"
 
 export const maxDuration = 30
 
 export async function POST(req: Request) {
-  const { messages }: { messages: UIMessage[] } = await req.json()
-
   try {
+    const { messages }: { messages: UIMessage[] } = await req.json()
+
+    // Use Anthropic provider via AI SDK with explicit configuration
+    const client = createAnthropic({
+      baseURL: process.env.AI_SDK_PROVIDER_ENDPOINT,
+      apiKey: process.env.VERCEL_AI_GATEWAY_API_KEY || process.env.ANTHROPIC_API_KEY,
+    })
+
     const result = streamText({
-      model: "anthropic/claude-opus-4.6",
+      model: client("claude-3-5-sonnet-20241022"),
       system: `You are the AI Copilot for Civic Digital Twin, an AI-powered city simulation platform.
 You help urban planners and city officials understand how interventions affect city-wide risk levels, resource efficiency, and population health outcomes.
 
@@ -25,41 +32,9 @@ Respond with concrete, data-driven projections. Use specific percentages, popula
 
     return result.toUIMessageStreamResponse()
   } catch (error: any) {
-    console.error("[v0] Chat API error:", error)
+    console.error("[v0] Chat API error:", error?.message || error)
 
-    // Handle AI Gateway verification errors
-    if (error?.statusCode === 403) {
-      if (error?.data?.error?.type === 'customer_verification_required') {
-        return new Response(
-          JSON.stringify({
-            error: "AI service temporarily unavailable due to verification. Please try again in a moment.",
-            type: "service_verification_pending"
-          }),
-          { status: 503, headers: { "Content-Type": "application/json" } }
-        )
-      }
-      // Generic 403 Forbidden
-      return new Response(
-        JSON.stringify({
-          error: "Not authorized to use AI service. Please verify your Vercel project configuration.",
-          type: "auth_error"
-        }),
-        { status: 403, headers: { "Content-Type": "application/json" } }
-      )
-    }
-
-    // Handle network/connection errors
-    if (error?.message?.includes("ECONNREFUSED") || error?.message?.includes("ENOTFOUND")) {
-      return new Response(
-        JSON.stringify({
-          error: "Unable to connect to AI service. This is a temporary issue. Please try again.",
-          type: "connection_error"
-        }),
-        { status: 503, headers: { "Content-Type": "application/json" } }
-      )
-    }
-
-    // Handle timeout errors
+    // Handle timeout errors first
     if (error?.name === "AbortError") {
       return new Response(
         JSON.stringify({
@@ -70,12 +45,47 @@ Respond with concrete, data-driven projections. Use specific percentages, popula
       )
     }
 
-    // Generic error fallback
+    // Handle 401/403 auth errors
+    if (error?.statusCode === 401 || error?.statusCode === 403) {
+      return new Response(
+        JSON.stringify({
+          error: "Authentication failed. Please verify API keys are configured.",
+          type: "auth_error"
+        }),
+        { status: 401, headers: { "Content-Type": "application/json" } }
+      )
+    }
+
+    // Handle 429 rate limit
+    if (error?.statusCode === 429) {
+      return new Response(
+        JSON.stringify({
+          error: "Rate limited. Please try again in a moment.",
+          type: "rate_limit_error"
+        }),
+        { status: 429, headers: { "Content-Type": "application/json" } }
+      )
+    }
+
+    // Handle network/connection errors
+    const errorMsg = error?.message || ""
+    if (errorMsg.includes("ECONNREFUSED") || errorMsg.includes("ENOTFOUND") || errorMsg.includes("fetch")) {
+      return new Response(
+        JSON.stringify({
+          error: "Unable to connect to AI service. Please check your network connection.",
+          type: "connection_error"
+        }),
+        { status: 503, headers: { "Content-Type": "application/json" } }
+      )
+    }
+
+    // Generic error fallback with detailed message in development
+    const isDev = process.env.NODE_ENV === "development"
     return new Response(
       JSON.stringify({
         error: "An error occurred with the AI service. Please try again later.",
         type: "unknown_error",
-        details: process.env.NODE_ENV === "development" ? error?.message : undefined
+        details: isDev ? (error?.message || String(error)) : undefined
       }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     )

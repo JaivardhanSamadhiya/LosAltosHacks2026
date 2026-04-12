@@ -240,7 +240,12 @@ function AICopilotChat({ onSimResult }: { onSimResult: (result: SimResult) => vo
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({ api: "/api/chat" }),
     onError: (err) => {
-      console.error("[v0] Chat error:", err)
+      const errorMsg = err instanceof Error ? err.message : String(err)
+      console.error("[v0] Chat error details:", {
+        errorMsg,
+        errorType: err instanceof Error ? err.name : typeof err,
+        fullError: err
+      })
       setError("Unable to connect to AI service. Please try again later.")
     },
     onFinish: (msg) => {
