@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState, useCallback } from "react"
 import { ScrollReveal } from "./scroll-reveal"
-import { useChat } from "@ai-sdk/react"
-import { DefaultChatTransport } from "ai"
 import {
   Send, Bot, User, Sparkles, MapPin, RefreshCw, Shield, Zap, Target, TrendingUp,
   ArrowDown, ArrowUp, Thermometer, Wind, Droplets, AlertTriangle, Activity,
@@ -232,42 +230,59 @@ function CityMap({
 
 // ─── AI Copilot Chat ──────────────────────────────────────────────────────────
 
+interface ChatMessage {
+  id: string
+  role: "user" | "assistant"
+  content: string
+}
+
 function AICopilotChat({ onSimResult }: { onSimResult: (result: SimResult) => void }) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [input, setInput] = useState("")
   const [error, setError] = useState<string | null>(null)
+  const [messages, setMessages] = useState<ChatMessage[]>([])
+  const [isStreaming, setIsStreaming] = useState(false)
 
-  const { messages, sendMessage, status } = useChat({
-    transport: new DefaultChatTransport({ api: "/api/chat" }),
-    onError: (err) => {
-      const errorMsg = err instanceof Error ? err.message : String(err)
-      console.error("[v0] Chat error details:", {
-        errorMsg,
-        errorType: err instanceof Error ? err.name : typeof err,
-        fullError: err
+  const handleSend = async () => {
+    const trimmed = input.trim()
+    if (!trimmed || isStreaming) return
+    setError(null)
+    setInput("")
+
+    const userMsg: ChatMessage = { id: crypto.randomUUID(), role: "user", content: trimmed }
+    setMessages((prev) => [...prev, userMsg])
+    setIsStreaming(true)
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: trimmed }),
       })
-      setError("Unable to connect to AI service. Please try again later.")
-    },
-    onFinish: (msg) => {
-      const text = msg.parts?.filter((p): p is { type: "text"; text: string } => p.type === "text").map(p => p.text).join("") ?? ""
-      // Try to extract city + risk score from response
-      const cityMatch = cityHotspots.find(c => text.toLowerCase().includes(c.name.toLowerCase()))
-      const scoreMatch = text.match(/risk(?:\s+score)?[^\d]*(\d{1,3})%?/i) ?? text.match(/(\d{1,3})%?\s+risk/i)
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}))
+        throw new Error(errData.error || `Server returned ${res.status}`)
+      }
+
+      const data = await res.json()
+      const reply: string = data.reply || "I encountered an issue processing your request."
+
+      const assistantMsg: ChatMessage = { id: crypto.randomUUID(), role: "assistant", content: reply }
+      setMessages((prev) => [...prev, assistantMsg])
+
+      const cityMatch = cityHotspots.find((c) => reply.toLowerCase().includes(c.name.toLowerCase()))
+      const scoreMatch = reply.match(/risk(?:\s+score)?[^\d]*(\d{1,3})%?/i) ?? reply.match(/(\d{1,3})%?\s+risk/i)
       if (cityMatch && scoreMatch) {
         const score = parseInt(scoreMatch[1])
         if (score >= 1 && score <= 100) onSimResult({ cityName: cityMatch.name, riskScore: score })
       }
-    },
-  })
-
-  const isStreaming = status === "streaming" || status === "submitted"
-
-  const handleSend = () => {
-    const trimmed = input.trim()
-    if (!trimmed || isStreaming) return
-    setError(null)
-    sendMessage({ text: trimmed })
-    setInput("")
+    } catch (err: any) {
+      console.error("[chat] Error:", err)
+      setError("Unable to connect to AI service. Please try again later.")
+    } finally {
+      setIsStreaming(false)
+    }
   }
 
   const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -326,27 +341,24 @@ function AICopilotChat({ onSimResult }: { onSimResult: (result: SimResult) => vo
             </div>
           </div>
         ) : (
-          messages.map((msg) => {
-            const text = msg.parts?.filter((p): p is { type: "text"; text: string } => p.type === "text").map(p => p.text).join("") ?? ""
-            return (
-              <div key={msg.id} className={`flex gap-2.5 ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                {msg.role === "assistant" && (
-                  <div className="w-7 h-7 rounded-full bg-lime-400/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Bot className="w-3.5 h-3.5 text-lime-300" />
-                  </div>
-                )}
-                <div
-                  className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${msg.role === "user" ? "bg-lime-400 text-black font-medium" : "bg-white/5 text-white border border-white/10"}`}
-                  dangerouslySetInnerHTML={{ __html: text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") }}
-                />
-                {msg.role === "user" && (
-                  <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <User className="w-3.5 h-3.5 text-white" />
-                  </div>
-                )}
-              </div>
-            )
-          })
+          messages.map((msg) => (
+            <div key={msg.id} className={`flex gap-2.5 ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+              {msg.role === "assistant" && (
+                <div className="w-7 h-7 rounded-full bg-lime-400/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Bot className="w-3.5 h-3.5 text-lime-300" />
+                </div>
+              )}
+              <div
+                className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${msg.role === "user" ? "bg-lime-400 text-black font-medium" : "bg-white/5 text-white border border-white/10"}`}
+                dangerouslySetInnerHTML={{ __html: msg.content.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") }}
+              />
+              {msg.role === "user" && (
+                <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <User className="w-3.5 h-3.5 text-white" />
+                </div>
+              )}
+            </div>
+          ))
         )}
         {isStreaming && messages[messages.length - 1]?.role !== "assistant" && (
           <div className="flex gap-2.5 justify-start">
