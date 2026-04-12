@@ -4,41 +4,50 @@ export async function GET() {
 
   if (palantirUrl && palantirToken) {
     try {
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 15000)
+
       const res = await fetch(
         `${palantirUrl}/api/v2/ontologies/ontology/objects/CDT_SimulationRun`,
         {
           headers: { Authorization: `Bearer ${palantirToken}` },
           next: { revalidate: 10 },
+          signal: controller.signal,
         }
       )
-      const data = await res.json()
-      const items = (data?.data ?? [])
-        .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-        .slice(0, 10)
-        .map((item: any) => {
-          const score = item.riskScore ?? 0
-          const level =
-            score >= 75 ? "extreme" : score >= 55 ? "critical" : score >= 35 ? "high" : "medium"
-          const createdMs = new Date(item.created_at).getTime()
-          const diffMins = Math.floor((Date.now() - createdMs) / 60000)
-          const timeAgo =
-            diffMins < 1
-              ? "just now"
-              : diffMins < 60
-              ? `${diffMins} min${diffMins > 1 ? "s" : ""} ago`
-              : `${Math.floor(diffMins / 60)}h ago`
-          const explanation: string = item.explanation ?? ""
-          return {
-            cityName: item.cityName,
-            riskScore: score,
-            riskLevel: level,
-            timeAgo,
-            explanation: explanation.split(".")[0] + (explanation.includes(".") ? "." : ""),
-          }
-        })
-      return Response.json(items)
-    } catch (err) {
-      console.error("[v0] Palantir history error:", err)
+
+      clearTimeout(timeoutId)
+
+      if (res.ok) {
+        const data = await res.json()
+        const items = (data?.data ?? [])
+          .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+          .slice(0, 10)
+          .map((item: any) => {
+            const score = item.riskScore ?? 0
+            const level =
+              score >= 75 ? "extreme" : score >= 55 ? "critical" : score >= 35 ? "high" : "medium"
+            const createdMs = new Date(item.created_at).getTime()
+            const diffMins = Math.floor((Date.now() - createdMs) / 60000)
+            const timeAgo =
+              diffMins < 1
+                ? "just now"
+                : diffMins < 60
+                ? `${diffMins} min${diffMins > 1 ? "s" : ""} ago`
+                : `${Math.floor(diffMins / 60)}h ago`
+            const explanation: string = item.explanation ?? ""
+            return {
+              cityName: item.cityName,
+              riskScore: score,
+              riskLevel: level,
+              timeAgo,
+              explanation: explanation.split(".")[0] + (explanation.includes(".") ? "." : ""),
+            }
+          })
+        return Response.json(items)
+      }
+    } catch (err: any) {
+      // Silently fall through to mock data on any error
     }
   }
 
