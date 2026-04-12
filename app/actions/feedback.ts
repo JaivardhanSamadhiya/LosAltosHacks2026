@@ -2,9 +2,20 @@
 
 export async function submitFeedback(formData: FormData) {
   try {
+    // Convert FormData to JSON format that formsubmit.co expects
+    const data: Record<string, string> = {}
+    formData.forEach((value, key) => {
+      if (typeof value === "string") {
+        data[key] = value
+      }
+    })
+
     const response = await fetch("https://formsubmit.co/33adb1ba33fe6326f12587f46bf36cad", {
       method: "POST",
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
 
     if (!response.ok) {
