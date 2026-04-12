@@ -135,58 +135,6 @@ export default function ContactPage() {
                   Send Feedback
                 </Button>
               </form>
-            </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-neutral-300 mb-1.5">
-                    Email Address
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="jane@city.gov"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:outline-none focus:border-lime-300/60 focus:ring-1 focus:ring-lime-300/30 transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="role" className="block text-sm font-medium text-neutral-300 mb-1.5">
-                    Role / Organization
-                  </label>
-                  <input
-                    id="role"
-                    name="role"
-                    type="text"
-                    placeholder="Urban Planner, City of Chicago"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:outline-none focus:border-lime-300/60 focus:ring-1 focus:ring-lime-300/30 transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-neutral-300 mb-1.5">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={5}
-                    placeholder="Tell us about your city and what you're hoping to solve..."
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-neutral-500 focus:outline-none focus:border-lime-300/60 focus:ring-1 focus:ring-lime-300/30 transition-colors resize-none"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full bg-lime-400 text-black hover:bg-lime-300 font-semibold py-3 rounded-xl flex items-center justify-center gap-2"
-                >
-                  <Send className="w-4 h-4" />
-                  Send Message
-                </Button>
-              </form>
-            </div>
           )}
         </div>
       </div>

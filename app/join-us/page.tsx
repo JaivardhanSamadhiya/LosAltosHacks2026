@@ -2,113 +2,130 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { ArrowLeft, Layers, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Checkout } from '@/lib/checkout'
+import Checkout from '@/components/checkout'
 import { PRODUCTS } from '@/lib/products'
-import { Check, ArrowLeft } from 'lucide-react'
 
 export default function JoinUsPage() {
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null)
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-black to-gray-950 relative overflow-hidden py-20">
-      {/* Background Effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-lime-400/20 rounded-full blur-3xl opacity-20 animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-lime-400/10 rounded-full blur-3xl opacity-10" />
+    <div className="min-h-screen text-white flex flex-col">
+      <div className="absolute inset-0 particle-bg opacity-20 pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-lime-400/5 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Header */}
+      <div className="relative z-10 container mx-auto px-4 py-8">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-lime-300 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to home
+        </Link>
       </div>
 
-      <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        {/* Header */}
-        <div className="mb-16 text-center">
-          <Link href="/" className="inline-flex items-center gap-2 text-lime-300 hover:text-lime-200 transition-colors mb-6">
-            <ArrowLeft className="h-4 w-4" />
-            Back to home
-          </Link>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 text-balance">
-            Join the Civic Digital Twin Community
-          </h1>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto mb-8">
-            Choose a plan that fits your needs and start transforming urban planning with AI-powered simulations.
-          </p>
-        </div>
-
-        {selectedPlan ? (
-          // Checkout View
-          <div className="max-w-2xl mx-auto">
-            <Card className="liquid-glass border border-white/10 mb-6">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-2xl text-white">
-                      {PRODUCTS.find((p) => p.id === selectedPlan)?.name} Plan
-                    </CardTitle>
-                    <CardDescription className="text-white/60">
-                      ${(PRODUCTS.find((p) => p.id === selectedPlan)?.priceInCents || 0) / 100}/month
-                    </CardDescription>
-                  </div>
-                  <button
-                    onClick={() => setSelectedPlan(null)}
-                    className="text-white/60 hover:text-white transition-colors"
-                  >
-                    ✕
-                  </button>
-                </div>
-              </CardHeader>
-            </Card>
-            <Checkout productId={selectedPlan} />
-          </div>
-        ) : (
-          // Plans Grid
-          <div className="grid md:grid-cols-3 gap-8">
-            {PRODUCTS.map((product) => (
-              <Card
-                key={product.id}
-                className="liquid-glass border border-white/10 hover:border-lime-400/40 transition-all duration-300 flex flex-col group"
+      {/* Main content */}
+      <div className="relative z-10 flex-1 flex items-center justify-center container mx-auto px-4 py-12">
+        <div className="w-full max-w-5xl">
+          {selectedProduct ? (
+            // Checkout view
+            <div>
+              <button
+                onClick={() => setSelectedProduct(null)}
+                className="mb-8 flex items-center gap-2 text-sm text-neutral-400 hover:text-lime-300 transition-colors"
               >
-                <CardHeader>
-                  <CardTitle className="text-xl text-white group-hover:text-lime-300 transition-colors">
-                    {product.name}
-                  </CardTitle>
-                  <CardDescription className="text-white/60">{product.description}</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow flex flex-col">
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold text-white">${(product.priceInCents / 100).toFixed(2)}</span>
-                    <span className="text-white/60">/month</span>
+                <ArrowLeft className="w-4 h-4" />
+                Back to plans
+              </button>
+              <div className="liquid-glass rounded-2xl p-8 border border-lime-400/20">
+                <Checkout productId={selectedProduct} />
+              </div>
+            </div>
+          ) : (
+            // Plans view
+            <div>
+              {/* Brand and Title */}
+              <div className="text-center mb-12">
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <div className="h-8 w-8 rounded-lg bg-lime-400 flex items-center justify-center">
+                    <Layers className="w-5 h-5 text-black" />
                   </div>
+                  <span className="text-lg font-semibold text-white">Civic Digital Twin</span>
+                </div>
+                <h1 className="text-4xl font-extrabold text-white mb-3">Join Our Platform</h1>
+                <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
+                  Choose the perfect subscription plan for your urban planning needs. Start simulating smarter cities today.
+                </p>
+              </div>
 
-                  <ul className="space-y-3 mb-8 flex-grow">
-                    {product.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <Check className="h-5 w-5 text-lime-300 flex-shrink-0 mt-0.5" />
-                        <span className="text-white/80 text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+              {/* Pricing Cards */}
+              <div className="grid md:grid-cols-3 gap-6">
+                {PRODUCTS.map((product) => {
+                  const isPopular = product.id === 'professional'
+                  return (
+                    <div
+                      key={product.id}
+                      className={`relative liquid-glass rounded-2xl p-8 border transition-all duration-300 ${
+                        isPopular
+                          ? 'border-lime-400/60 ring-2 ring-lime-400/30 md:scale-[1.05]'
+                          : 'border-white/10 hover:border-lime-400/40'
+                      }`}
+                    >
+                      {isPopular && (
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                          <span className="inline-block bg-lime-400 text-black text-xs font-bold px-3 py-1 rounded-full">
+                            MOST POPULAR
+                          </span>
+                        </div>
+                      )}
 
-                  <Button
-                    onClick={() => setSelectedPlan(product.id)}
-                    className="w-full bg-lime-400 text-black hover:bg-lime-300 font-semibold rounded-lg py-2 transition-all"
-                  >
-                    Choose {product.name}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        )}
+                      <div className="mb-6">
+                        <h3 className="text-xl font-bold text-white mb-2">{product.name}</h3>
+                        <p className="text-neutral-400 text-sm mb-4">{product.description}</p>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-4xl font-bold text-lime-400">
+                            ${(product.priceInCents / 100).toFixed(0)}
+                          </span>
+                          <span className="text-neutral-400">/month</span>
+                        </div>
+                      </div>
 
-        {/* Footer Info */}
-        <div className="mt-16 text-center text-white/60 text-sm">
-          <p>All plans include a 7-day free trial. Cancel anytime.</p>
-          <p className="mt-2">
-            Questions?{' '}
-            <Link href="/contact" className="text-lime-300 hover:text-lime-200 transition-colors">
-              Contact our team
-            </Link>
-          </p>
+                      {/* Features List */}
+                      <div className="mb-8 space-y-3">
+                        {product.features.map((feature, idx) => (
+                          <div key={idx} className="flex items-start gap-2">
+                            <Check className="w-5 h-5 text-lime-300 flex-shrink-0 mt-0.5" />
+                            <span className="text-neutral-300 text-sm">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* CTA Button */}
+                      <Button
+                        onClick={() => setSelectedProduct(product.id)}
+                        className={`w-full font-semibold py-3 rounded-lg transition-all ${
+                          isPopular
+                            ? 'bg-lime-400 text-black hover:bg-lime-300'
+                            : 'border border-lime-400/50 text-lime-300 hover:bg-lime-400/10'
+                        }`}
+                      >
+                        Subscribe Now
+                      </Button>
+                    </div>
+                  )
+                })}
+              </div>
+
+              {/* Support Info */}
+              <div className="mt-12 text-center">
+                <p className="text-neutral-400">
+                  All plans include a 14-day free trial. Cancel anytime, no questions asked.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
