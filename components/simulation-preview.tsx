@@ -189,9 +189,14 @@ function CityMap({ selected, onSelect }: { selected: number | null; onSelect: (i
 function AICopilotChat() {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [input, setInput] = useState("")
+  const [error, setError] = useState<string | null>(null)
 
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({ api: "/api/chat" }),
+    onError: (err) => {
+      console.error("[v0] Chat error:", err)
+      setError("Unable to connect to AI service. Please try again later.")
+    },
   })
 
   const isStreaming = status === "streaming" || status === "submitted"
@@ -199,6 +204,7 @@ function AICopilotChat() {
   const handleSend = () => {
     const trimmed = input.trim()
     if (!trimmed || isStreaming) return
+    setError(null)
     sendMessage({ text: trimmed })
     setInput("")
   }
@@ -241,7 +247,17 @@ function AICopilotChat() {
 
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
-        {messages.length === 0 ? (
+        {error && (
+          <div className="flex gap-2.5 justify-start">
+            <div className="w-7 h-7 rounded-full bg-red-400/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
+            </div>
+            <div className="max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm bg-red-400/10 text-red-400 border border-red-400/30">
+              {error}
+            </div>
+          </div>
+        )}
+        {messages.length === 0 && !error ? (
           <div className="h-full flex flex-col items-center justify-center text-center gap-4 py-4">
             <Bot className="w-10 h-10 text-lime-300/30" />
             <p className="text-neutral-500 text-xs max-w-[200px]">
@@ -373,7 +389,7 @@ function CityDetailBar({ cityId }: { cityId: number | null }) {
   )
 }
 
-// ── Main Export ──────────────────────────────────────────────────────────────
+// ── Main Export ──────────���───────────────────────────────────────────────────
 export function SimulationPreview() {
   const [selectedCity, setSelectedCity] = useState<number | null>(null)
   const [mapMounted, setMapMounted] = useState(false)

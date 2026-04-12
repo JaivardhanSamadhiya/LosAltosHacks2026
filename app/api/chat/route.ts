@@ -5,9 +5,10 @@ export const maxDuration = 30
 export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json()
 
-  const result = streamText({
-    model: "openai/gpt-4o-mini",
-    system: `You are the AI Copilot for Civic Digital Twin, an AI-powered city simulation platform.
+  try {
+    const result = streamText({
+      model: "openai/gpt-4o-mini",
+      system: `You are the AI Copilot for Civic Digital Twin, an AI-powered city simulation platform.
 You help urban planners and city officials understand how interventions affect city-wide risk levels, resource efficiency, and population health outcomes.
 
 You can analyze:
@@ -18,9 +19,22 @@ You can analyze:
 - Flood, wildfire, and extreme weather resilience
 
 Respond with concrete, data-driven projections. Use specific percentages, populations, and cost estimates when possible. Keep responses concise and actionable. Format key numbers in bold.`,
-    messages: await convertToModelMessages(messages),
-    abortSignal: req.signal,
-  })
+      messages: await convertToModelMessages(messages),
+      abortSignal: req.signal,
+    })
 
-  return result.toUIMessageStreamResponse()
+    return result.toUIMessageStreamResponse()
+  } catch (error: any) {
+    // Handle AI Gateway verification errors
+    if (error?.statusCode === 403 && error?.data?.error?.type === 'customer_verification_required') {
+      return new Response(
+        JSON.stringify({
+          error: "AI service temporarily unavailable. Please try again later or contact support.",
+          type: "service_unavailable"
+        }),
+        { status: 503, headers: { "Content-Type": "application/json" } }
+      )
+    }
+    throw error
+  }
 }
