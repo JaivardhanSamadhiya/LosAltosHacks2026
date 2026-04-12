@@ -4,7 +4,6 @@ import { createClient } from "@/lib/supabase/server"
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get("code")
-  const next = searchParams.get("next") ?? "/"
 
   if (code) {
     const supabase = await createClient()
@@ -20,7 +19,7 @@ export async function GET(request: Request) {
 
       // New users (no name / role yet) → onboarding; existing → home
       const isNewUser = !profile?.full_name || !profile?.role
-      const redirectTo = isNewUser ? "/auth/onboarding" : next
+      const redirectTo = isNewUser ? "/auth/onboarding" : "/"
 
       return NextResponse.redirect(`${origin}${redirectTo}`)
     }

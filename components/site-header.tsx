@@ -29,12 +29,16 @@ const links = [
 async function signInWithGoogle(mode: "signin" | "signup") {
   const supabase = createClient()
   const next = mode === "signup" ? "/auth/onboarding" : "/"
+  // Store the intended redirect in sessionStorage so the callback can access it
+  if (typeof window !== "undefined") {
+    sessionStorage.setItem("auth_redirect_next", next)
+  }
   await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
       redirectTo:
         process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ??
-        `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+        `${window.location.origin}/auth/callback`,
     },
   })
 }
