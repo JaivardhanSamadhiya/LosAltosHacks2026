@@ -11,6 +11,7 @@ import { useState } from "react"
 export function SiteHeader() {
   const [servicesOpen, setServicesOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [dropdownClickMode, setDropdownClickMode] = useState(false)
 
   const services = [
     {
@@ -54,10 +55,22 @@ export function SiteHeader() {
             {/* Features Dropdown */}
             <div 
               className="relative"
-              onMouseEnter={() => setDropdownOpen(true)}
-              onMouseLeave={() => setDropdownOpen(false)}
+              onMouseEnter={() => {
+                if (!dropdownClickMode) {
+                  setDropdownOpen(true)
+                }
+              }}
+              onMouseLeave={() => {
+                if (!dropdownClickMode) {
+                  setDropdownOpen(false)
+                }
+              }}
             >
               <button 
+                onClick={() => {
+                  setDropdownClickMode(!dropdownClickMode)
+                  setDropdownOpen(!dropdownOpen)
+                }}
                 className="flex items-center gap-1.5 py-2.5 px-3 rounded-lg
                            hover:text-lime-300 hover:bg-white/5
                            transition-all duration-200"
@@ -76,7 +89,10 @@ export function SiteHeader() {
                       <Link
                         key={service.href}
                         href={service.href}
-                        onClick={() => setDropdownOpen(false)}
+                        onClick={() => {
+                          setDropdownOpen(false)
+                          setDropdownClickMode(false)
+                        }}
                         className="flex items-start gap-3 px-4 py-3 rounded-lg
                                    hover:bg-lime-400/15 transition-all duration-150
                                    group/item"
@@ -101,7 +117,11 @@ export function SiteHeader() {
             {links.map((l) => (
               <Link 
                 key={l.href} 
-                href={l.href} 
+                href={l.href}
+                onClick={() => {
+                  setDropdownOpen(false)
+                  setDropdownClickMode(false)
+                }}
                 className="flex items-center gap-1.5 py-2.5 px-3 rounded-lg
                            hover:text-lime-300 hover:bg-white/5
                            transition-all duration-200"
