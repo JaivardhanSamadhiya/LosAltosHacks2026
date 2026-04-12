@@ -7,7 +7,7 @@ export async function POST(req: Request) {
 
   try {
     const result = streamText({
-      model: "openai/gpt-4o-mini",
+      model: "anthropic/claude-opus-4.6",
       system: `You are the AI Copilot for Civic Digital Twin, an AI-powered city simulation platform.
 You help urban planners and city officials understand how interventions affect city-wide risk levels, resource efficiency, and population health outcomes.
 
