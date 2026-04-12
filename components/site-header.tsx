@@ -58,7 +58,7 @@ export function SiteHeader() {
 
           {/* Desktop Nav with Services Dropdown */}
           <nav className="hidden items-center gap-6 text-sm text-white/90 md:flex">
-            <NavigationMenu>
+            <NavigationMenu className="relative">
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
@@ -69,30 +69,32 @@ export function SiteHeader() {
                   >
                     Features
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[300px] gap-2 p-4 bg-black/90 backdrop-blur-md border border-lime-400/30 rounded-xl shadow-lg shadow-black/50 z-50">
-                      {services.map((service) => (
-                        <li key={service.href + service.label}>
-                          <NavigationMenuLink asChild>
-                            <Link
-                              href={service.href}
-                              className="group relative flex items-start gap-3 rounded-lg p-3 transition-all
-                                         hover:bg-lime-400/15 hover:ring-1 hover:ring-lime-300/50
-                                         hover:shadow-[0_0_0_1px_rgba(163,230,53,0.3),0_0_15px_rgba(163,230,53,0.2)]
-                                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-300/70"
-                            >
-                              <service.icon className="h-5 w-5 text-lime-300 mt-0.5 shrink-0 group-hover:text-lime-100" />
-                              <div>
-                                <div className="text-sm font-semibold text-white/95 group-hover:text-lime-200">
-                                  {service.label}
+                  <NavigationMenuContent className="absolute left-0 top-full mt-1 z-[9999]">
+                    <div className="w-[320px] rounded-xl border border-lime-400/30 bg-black/95 backdrop-blur-md shadow-xl p-4">
+                      <ul className="grid gap-2">
+                        {services.map((service) => (
+                          <li key={service.href + service.label}>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                href={service.href}
+                                className="group relative flex items-start gap-3 rounded-lg p-3 transition-all
+                                           hover:bg-lime-400/20 hover:ring-1 hover:ring-lime-300/60
+                                           hover:shadow-[0_0_0_1px_rgba(163,230,53,0.3),0_0_20px_rgba(163,230,53,0.2)]
+                                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-300/70"
+                              >
+                                <service.icon className="h-5 w-5 text-lime-300 mt-0.5 shrink-0 group-hover:text-lime-100" />
+                                <div>
+                                  <div className="text-sm font-semibold text-white group-hover:text-lime-200">
+                                    {service.label}
+                                  </div>
+                                  <p className="text-xs text-white/60 mt-0.5 group-hover:text-white/80">{service.description}</p>
                                 </div>
-                                <p className="text-xs text-white/50 mt-0.5 group-hover:text-white/70">{service.description}</p>
-                              </div>
-                            </Link>
-                          </NavigationMenuLink>
-                        </li>
-                      ))}
-                    </ul>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>

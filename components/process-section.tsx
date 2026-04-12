@@ -52,27 +52,27 @@ export function ProcessSection() {
           {/* Connection line - hidden on mobile */}
           <div className="hidden lg:block absolute top-24 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-lime-400/20 via-purple-500/20 via-cyan-500/20 to-orange-500/20" />
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {steps.map((step, index) => (
               <ScrollReveal key={step.number} delay={index * 150} direction="up">
-                <div className="relative group">
+                <div className="relative group h-full">
                   {/* Step card */}
-                  <div className="liquid-glass rounded-2xl p-6 h-full glass-card-interactive">
+                  <div className="liquid-glass rounded-2xl p-6 h-full glass-card-interactive flex flex-col">
                     {/* Number badge */}
-                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${step.color} text-black font-bold text-lg mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${step.color} text-black font-bold text-lg mb-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
                       {step.number}
                     </div>
                     
                     {/* Icon */}
-                    <div className="mb-4">
+                    <div className="mb-4 flex-shrink-0">
                       <step.icon className="w-6 h-6 text-white/70 group-hover:text-lime-300 transition-colors" />
                     </div>
                     
-                    {/* Content */}
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-lime-300 transition-colors">
+                    {/* Content - grows to fill available space */}
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-lime-300 transition-colors">
                       {step.title}
                     </h3>
-                    <p className="text-neutral-400 text-sm leading-relaxed">
+                    <p className="text-neutral-400 text-sm leading-relaxed flex-grow">
                       {step.description}
                     </p>
                   </div>
