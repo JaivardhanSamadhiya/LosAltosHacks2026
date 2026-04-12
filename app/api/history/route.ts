@@ -4,10 +4,8 @@ export async function GET() {
 
   if (palantirUrl && palantirToken) {
     try {
-      console.log("[v0] Fetching Palantir simulation history from:", palantirUrl)
-
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 15000) // 15s timeout
+      const timeoutId = setTimeout(() => controller.abort(), 15000)
 
       const res = await fetch(
         `${palantirUrl}/api/v2/ontologies/ontology/objects/CDT_SimulationRun`,
@@ -20,13 +18,8 @@ export async function GET() {
 
       clearTimeout(timeoutId)
 
-      if (!res.ok) {
-        console.error(`[v0] Palantir history returned ${res.status}:`, await res.text())
-        // Fall through to mock history on error
-      } else {
+      if (res.ok) {
         const data = await res.json()
-        console.log("[v0] Palantir history success, items count:", data?.data?.length)
-
         const items = (data?.data ?? [])
           .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
           .slice(0, 10)
@@ -54,15 +47,8 @@ export async function GET() {
         return Response.json(items)
       }
     } catch (err: any) {
-      if (err?.name === "AbortError") {
-        console.error("[v0] Palantir history request timed out")
-      } else {
-        console.error("[v0] Palantir history error:", err?.message)
-      }
-      // Fall through to mock history
+      // Silently fall through to mock data on any error
     }
-  } else {
-    console.warn("[v0] Palantir env vars not fully configured. Using mock history.")
   }
 
   // Fallback: realistic mock history feed

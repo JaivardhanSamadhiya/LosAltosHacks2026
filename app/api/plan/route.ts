@@ -21,10 +21,8 @@ export async function POST(req: Request) {
     // If Palantir env vars are set, call Palantir AIP
     if (palantirUrl && palantirToken && agentRid) {
       try {
-        console.log("[v0] Calling Palantir AIP with agent:", agentRid)
-
         const controller = new AbortController()
-        const timeoutId = setTimeout(() => controller.abort(), 45000) // 45s timeout for Palantir
+        const timeoutId = setTimeout(() => controller.abort(), 45000)
 
         const res = await fetch(
           `${palantirUrl}/api/v2/aipAgents/agents/${agentRid}/sessions/*/continue`,
@@ -41,24 +39,13 @@ export async function POST(req: Request) {
 
         clearTimeout(timeoutId)
 
-        if (!res.ok) {
-          console.error(`[v0] Palantir AIP returned ${res.status}:`, await res.text())
-          // Fall through to mock plan on error
-        } else {
+        if (res.ok) {
           const data = await res.json()
-          console.log("[v0] Palantir AIP success")
           return Response.json({ plan: data.agentResponse?.message ?? null })
         }
       } catch (err: any) {
-        if (err?.name === "AbortError") {
-          console.error("[v0] Palantir AIP request timed out")
-        } else {
-          console.error("[v0] Palantir AIP error:", err?.message)
-        }
-        // Fall through to mock plan
+        // Silently fall through to mock plan on error
       }
-    } else {
-      console.warn("[v0] Palantir env vars not fully configured. Using mock plan.")
     }
 
     // Fallback: generate a realistic mock plan
