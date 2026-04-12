@@ -4,9 +4,34 @@ import { useState } from "react"
 import Link from "next/link"
 import { ArrowLeft, Send, Layers, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { submitFeedback } from "@/app/actions/feedback"
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const formData = new FormData(e.currentTarget)
+      const result = await submitFeedback(formData)
+
+      if (result.success) {
+        setSubmitted(true)
+      } else {
+        setError(result.message)
+      }
+    } catch (err) {
+      console.error("[v0] Form submission error:", err)
+      setError("An error occurred while submitting your feedback. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="min-h-screen text-white flex flex-col">
@@ -53,20 +78,16 @@ export default function ContactPage() {
                 Do you have any feedback for us? We'd love to hear your thoughts on Civic Digital Twin and how we can improve the platform.
               </p>
 
-              {/* formsubmit.co form — action points to the email, _next redirects back */}
-              <form
-                action="https://formsubmit.co/33adb1ba33fe6326f12587f46bf36cad"
-                method="POST"
-                onSubmit={() => {
-                  // Allow native submit but show success state after a brief delay
-                  setTimeout(() => setSubmitted(true), 200)
-                }}
-                className="space-y-5"
-              >
-                {/* Formsubmit honeypot + config */}
+              {error && (
+                <div className="mb-6 p-4 rounded-lg bg-red-400/10 border border-red-400/30 text-red-400 text-sm">
+                  {error}
+                </div>
+              )}
+
+              {/* Form — async submission */}
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <input type="hidden" name="_captcha" value="false" />
                 <input type="hidden" name="_subject" value="New Civic Digital Twin Feedback" />
-                <input type="hidden" name="_next" value="/" />
                 <input type="text" name="_honey" className="hidden" />
 
                 <div>
@@ -129,10 +150,11 @@ export default function ContactPage() {
 
                 <Button
                   type="submit"
-                  className="w-full bg-lime-400 text-black hover:bg-lime-300 font-semibold py-3 rounded-xl flex items-center justify-center gap-2"
+                  disabled={isLoading}
+                  className="w-full bg-lime-400 text-black hover:bg-lime-300 disabled:opacity-50 disabled:cursor-not-allowed font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-opacity"
                 >
                   <Send className="w-4 h-4" />
-                  Send Feedback
+                  {isLoading ? "Sending..." : "Send Feedback"}
                 </Button>
               </form>
             </div>
