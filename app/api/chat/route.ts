@@ -28,7 +28,9 @@ export async function POST(req: Request) {
           }
         )
 
-        clearTimeout(timeoutId)
+    console.log('SESSION STATUS:', sessionRes.status)
+    const sessionBody = await sessionRes.text()
+    console.log('SESSION BODY:', sessionBody)
 
         if (res.ok) {
           const data = await res.json()
@@ -41,7 +43,7 @@ export async function POST(req: Request) {
       } catch (err: any) {
         console.warn("[chat] Palantir agent error, falling back to mock:", err?.message)
       }
-    }
+    )
 
     const mockResponses = [
       "Based on the current climate projections, the primary risks are concentrated in the low-lying coastal districts where storm surge could affect approximately 50,000 residents. I recommend prioritizing green infrastructure upgrades and expanded cooling centers in these vulnerable zones.",
