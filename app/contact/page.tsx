@@ -135,6 +135,7 @@ export default function ContactPage() {
                   Send Feedback
                 </Button>
               </form>
+            </div>
           )}
         </div>
       </div>
