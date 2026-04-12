@@ -434,7 +434,10 @@ function LiveSimulationFeed() {
   const fetchHistory = useCallback(async () => {
     try {
       const res = await fetch("/api/history")
-      if (!res.ok) return
+      if (!res.ok) {
+        console.warn("[v0] History fetch returned", res.status)
+        return
+      }
       const data: HistoryItem[] = await res.json()
 
       setItems((prev) => {
@@ -449,7 +452,8 @@ function LiveSimulationFeed() {
         return data
       })
     } catch (err) {
-      // silently ignore network errors in feed
+      console.warn("[v0] History fetch error:", err instanceof Error ? err.message : err)
+      // silently ignore network errors in feed — will retry on next poll
     }
   }, [])
 
@@ -568,10 +572,20 @@ function InterventionPlan({ simResult }: { simResult: SimResult | null }) {
           priorities: priorities.join(", "),
         }),
       })
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}))
+        setError(errorData.error || `Plan generation failed (${res.status})`)
+        return
+      }
       const data = await res.json()
-      setPlanRaw(data.plan ?? "No plan returned.")
-    } catch {
-      setError("Failed to generate plan. Please try again.")
+      if (!data.plan) {
+        setError("No plan was generated. Please try again.")
+        return
+      }
+      setPlanRaw(data.plan)
+    } catch (err) {
+      console.error("[v0] Plan generation error:", err)
+      setError("Failed to connect to plan service. Please try again.")
     } finally {
       setLoading(false)
     }
