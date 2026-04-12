@@ -10,6 +10,7 @@ import { useState } from "react"
 
 export function SiteHeader() {
   const [servicesOpen, setServicesOpen] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
   const services = [
     {
@@ -51,43 +52,49 @@ export function SiteHeader() {
           {/* Desktop Nav */}
           <nav className="hidden items-center gap-1 text-sm text-white/90 md:flex">
             {/* Features Dropdown */}
-            <div className="relative group">
+            <div 
+              className="relative"
+              onMouseEnter={() => setDropdownOpen(true)}
+              onMouseLeave={() => setDropdownOpen(false)}
+            >
               <button 
                 className="flex items-center gap-1.5 py-2.5 px-3 rounded-lg
                            hover:text-lime-300 hover:bg-white/5
                            transition-all duration-200"
               >
                 Features
-                <ChevronDown className="h-4 w-4 group-hover:rotate-180 transition-transform duration-300" />
+                <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} />
               </button>
               
               {/* Dropdown Menu */}
-              <div className="absolute left-0 top-full mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible 
-                              transition-all duration-200 ease-out
+              {dropdownOpen && (
+                <div className="absolute left-0 top-full mt-1 w-80
                               rounded-xl border border-lime-400/40 bg-black/95 backdrop-blur-xl shadow-2xl p-3
-                              z-[9999] pointer-events-none group-hover:pointer-events-auto">
-                <div className="space-y-1">
-                  {services.map((service) => (
-                    <Link
-                      key={service.href}
-                      href={service.href}
-                      className="flex items-start gap-3 px-4 py-3 rounded-lg
-                                 hover:bg-lime-400/15 transition-all duration-150
-                                 group/item"
-                    >
-                      <service.icon className="h-5 w-5 text-lime-300 mt-0.5 flex-shrink-0 group-hover/item:text-lime-100" />
-                      <div className="flex-1">
-                        <div className="font-semibold text-white text-sm group-hover/item:text-lime-200 transition-colors">
-                          {service.label}
+                              z-[9999] animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="space-y-1">
+                    {services.map((service) => (
+                      <Link
+                        key={service.href}
+                        href={service.href}
+                        onClick={() => setDropdownOpen(false)}
+                        className="flex items-start gap-3 px-4 py-3 rounded-lg
+                                   hover:bg-lime-400/15 transition-all duration-150
+                                   group/item"
+                      >
+                        <service.icon className="h-5 w-5 text-lime-300 mt-0.5 flex-shrink-0 group-hover/item:text-lime-100" />
+                        <div className="flex-1">
+                          <div className="font-semibold text-white text-sm group-hover/item:text-lime-200 transition-colors">
+                            {service.label}
+                          </div>
+                          <div className="text-xs text-white/50 group-hover/item:text-white/70 transition-colors">
+                            {service.description}
+                          </div>
                         </div>
-                        <div className="text-xs text-white/50 group-hover/item:text-white/70 transition-colors">
-                          {service.description}
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Other Nav Links */}
