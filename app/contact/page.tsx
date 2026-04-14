@@ -9,9 +9,9 @@ import { submitFeedback } from "@/app/actions/feedback"
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState(null)
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setIsLoading(true)
     setError(null)

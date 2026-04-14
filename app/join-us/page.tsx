@@ -4,11 +4,11 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Layers, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import Checkout from '@/components/checkout'
+import { Checkout } from '@/lib/checkout'
 import { PRODUCTS } from '@/lib/products'
 
 export default function JoinUsPage() {
-  const [selectedProduct, setSelectedProduct] = useState<string | null>(null)
+  const [selectedProduct, setSelectedProduct] = useState(null)
 
   return (
     <div className="min-h-screen text-white flex flex-col">
